@@ -5,6 +5,10 @@ class Car < ActiveRecord::Base
   belongs_to :poster, :class_name => "User"
   belongs_to :model_year
   belongs_to :condition
+  belongs_to :interior_color, :class_name => "Color"
+  belongs_to :exterior_color, :class_name => "Color"
+  belongs_to :body_style
+  belongs_to :transmission
 
   validates :make_id,
             :presence => true
@@ -16,6 +20,18 @@ class Car < ActiveRecord::Base
             :presence => true
 
   validates :model_year_id,
+            :presence => true
+
+  validates :interior_color_id,
+            :presence => true
+
+  validates :exterior_color_id,
+            :presence => true
+
+  validates :body_style_id,
+            :presence => true
+
+  validates :transmission_id,
             :presence => true
 
   validates :asking_price,

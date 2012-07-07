@@ -9,6 +9,10 @@ describe Car do
     it { should belong_to :model_year }
     it { should belong_to(:poster).class_name("User") }
     it { should belong_to :condition }
+    it { should belong_to(:interior_color).class_name("Color") }
+    it { should belong_to(:exterior_color).class_name("Color") }
+    it { should belong_to :body_style }
+    it { should belong_to :transmission }
   end
 
   context "validations" do
@@ -18,6 +22,10 @@ describe Car do
     it { should validate_presence_of :poster_id }
     it { should validate_presence_of :condition_id }
     it { should validate_presence_of :description }
+    it { should validate_presence_of :interior_color_id }
+    it { should validate_presence_of :exterior_color_id }
+    it { should validate_presence_of :body_style_id }
+    it { should validate_presence_of :transmission_id }
 
     describe "#asking_price" do
       it { should validate_presence_of :asking_price }
