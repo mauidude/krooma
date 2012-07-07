@@ -1,8 +1,8 @@
 class Car < ActiveRecord::Base
-  belongs_to :make, :class_name => "Manufacturer", :foreign_key => "make_id"
+  belongs_to :make, :class_name => "Manufacturer"
   belongs_to :model
   belongs_to :trim
-  belongs_to :poster, :class_name => "User", :foreign_key => "poster_id"
+  belongs_to :poster, :class_name => "User"
   belongs_to :model_year
   belongs_to :condition
 

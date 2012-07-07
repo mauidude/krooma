@@ -8,7 +8,7 @@ class CreateCars < ActiveRecord::Migration
       t.references :model_year, :null => false
       t.integer :asking_price, :null => false
       t.references :condition, :null => false
-      t.string :vin
+      t.string :vin, :limit => 17
 
       t.text :description, :null => false
       t.timestamps
