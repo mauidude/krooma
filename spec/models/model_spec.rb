@@ -6,6 +6,7 @@ describe Model do
   context "associations" do
     it { should belong_to(:make).class_name("Manufacturer") }
     it { should have_many :trims }
+    it { should have_and_belong_to_many :model_years }
   end
 
   context "validations" do
