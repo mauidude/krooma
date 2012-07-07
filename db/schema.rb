@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120707062452) do
+ActiveRecord::Schema.define(:version => 20120707064939) do
 
   create_table "cars", :force => true do |t|
     t.integer  "make_id",                     :null => false
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(:version => 20120707062452) do
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
   end
+
+  create_table "conditions", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "url_name",   :null => false
+    t.boolean  "used",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "conditions", ["url_name"], :name => "index_conditions_on_url_name", :unique => true
 
   create_table "manufacturers", :force => true do |t|
     t.string   "name",       :null => false
