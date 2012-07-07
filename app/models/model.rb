@@ -3,6 +3,7 @@ class Model < ActiveRecord::Base
 
   belongs_to :make, :class_name => "Manufacturer"
   has_many :trims
+  #has_and_belongs_to_many :model_years
 
   validates :make_id,
             :presence => true

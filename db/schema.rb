@@ -11,20 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120707052357) do
+ActiveRecord::Schema.define(:version => 20120707060428) do
 
   create_table "cars", :force => true do |t|
-    t.integer  "make_id",       :null => false
-    t.integer  "model_id",      :null => false
+    t.integer  "make_id",                     :null => false
+    t.integer  "model_id",                    :null => false
     t.integer  "trim_id"
-    t.integer  "poster_id",     :null => false
-    t.integer  "model_year_id", :null => false
-    t.integer  "asking_price",  :null => false
-    t.integer  "condition_id",  :null => false
-    t.string   "vin"
-    t.text     "description",   :null => false
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "poster_id",                   :null => false
+    t.integer  "model_year_id",               :null => false
+    t.integer  "asking_price",                :null => false
+    t.integer  "condition_id",                :null => false
+    t.string   "vin",           :limit => 17
+    t.text     "description",                 :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "manufacturers", :force => true do |t|
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(:version => 20120707052357) do
     t.string   "name",       :null => false
     t.string   "url_name",   :null => false
     t.integer  "make_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "trims", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "url_name",   :null => false
+    t.integer  "make_id",    :null => false
+    t.integer  "model_id",   :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
