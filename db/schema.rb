@@ -11,20 +11,103 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120707033655) do
+ActiveRecord::Schema.define(:version => 20120707220301) do
+
+  create_table "body_styles", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "url_name",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "body_styles", ["url_name"], :name => "index_body_styles_on_url_name", :unique => true
 
   create_table "cars", :force => true do |t|
-    t.integer  "make_id",       :null => false
-    t.integer  "model_id",      :null => false
+    t.integer  "make_id",                         :null => false
+    t.integer  "model_id",                        :null => false
     t.integer  "trim_id"
-    t.integer  "poster_id",     :null => false
-    t.integer  "model_year_id", :null => false
-    t.integer  "asking_price",  :null => false
-    t.integer  "condition_id",  :null => false
-    t.string   "vin"
-    t.text     "description",   :null => false
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "poster_id",                       :null => false
+    t.integer  "model_year_id",                   :null => false
+    t.integer  "asking_price",                    :null => false
+    t.integer  "condition_id",                    :null => false
+    t.string   "vin",               :limit => 17
+    t.text     "description",                     :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "interior_color_id",               :null => false
+    t.integer  "exterior_color_id",               :null => false
+    t.integer  "body_style_id",                   :null => false
+    t.integer  "transmission_id",                 :null => false
   end
+
+  create_table "colors", :force => true do |t|
+    t.string   "name",       :null => false
+    t.boolean  "external",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "colors", ["name", "external"], :name => "index_colors_on_name_and_external", :unique => true
+
+  create_table "conditions", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "url_name",   :null => false
+    t.boolean  "used",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "conditions", ["url_name"], :name => "index_conditions_on_url_name", :unique => true
+
+  create_table "manufacturers", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "url_name",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "manufacturers", ["url_name"], :name => "index_manufacturers_on_url_name", :unique => true
+
+  create_table "model_years", :force => true do |t|
+    t.integer  "year",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "model_years", ["year"], :name => "index_model_years_on_year", :unique => true
+
+  create_table "model_years_models", :force => true do |t|
+    t.integer "model_id",      :null => false
+    t.integer "model_year_id", :null => false
+  end
+
+  add_index "model_years_models", ["model_id", "model_year_id"], :name => "index_model_years_models_on_model_id_and_model_year_id", :unique => true
+
+  create_table "models", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "url_name",   :null => false
+    t.integer  "make_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "models", ["url_name"], :name => "index_models_on_url_name", :unique => true
+
+  create_table "transmissions", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "trims", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "url_name",   :null => false
+    t.integer  "make_id",    :null => false
+    t.integer  "model_id",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "trims", ["url_name"], :name => "index_trims_on_url_name", :unique => true
 
 end
