@@ -47,4 +47,52 @@ class Car < ActiveRecord::Base
   validates :description,
             :presence => true
 
+  searchable do
+    integer :asking_price
+    time :date_created
+
+    string :condition do
+      condition.name
+    end
+
+    string :body_style do
+      body_style.name
+    end
+
+    string :make do
+      make.name
+    end
+
+    string :model do
+      model.name
+    end
+
+    string :trim do
+      trim == nil ? nil : trim.name
+    end
+
+    integer :model_year do
+      model_year.year
+    end
+
+    string :interior do
+      interior_color.name
+    end
+
+    string :exterior do
+      exterior_color.name
+    end
+
+    string :transmission do
+      transmission.name
+    end
+
+    # New 2012 Honda Civic EX Sedan
+    text :summary do
+      "#{condition.name} #{model_year.year} #{make.name} #{model.name}#{trim == nil ? "" : (" " + trim.name + " ")}#{body_style.name}"
+    end
+
+    text :description
+  end
+
 end

@@ -6,7 +6,10 @@ gem 'rails', '3.2.6'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'haml'
+gem 'haml', '~> 1.3.6'
+gem 'sunspot_rails', '~> 1.3.3'
+gem 'sunspot_solr', '~> 1.3.3'
+gem 'will_paginate', '~> 3.0.3'
 
 
 # Gems used only for assets and not required
