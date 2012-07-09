@@ -1,0 +1,30 @@
+=content_for(:title) ? yield(:title) : "Krooma"
+
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container-fluid
+      %a.btn.btn-navbar{:data => {:target => ".nav-collapse", :toggle => "collapse"}}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    %a.brand{:href => "#"} Krooma
+    .container-fluid.nav-collapse
+      %ul.nav
+        %li= link_to "Link1", "/path1"
+        %li= link_to "Link2", "/path2"
+        %li= link_to "Link3", "/path3"
+
+.container-fluid
+  .row-fluid
+    .span3
+      .well.sidebar-nav
+        %ul.nav.nav-list
+          %li.nav-header Sidebar
+          %li= link_to "Link1", "/path1"
+          %li= link_to "Link2", "/path2"
+          %li= link_to "Link3", "/path3"
+
+    .span9
+      =yield
+
+=render :template => "layouts/base"
