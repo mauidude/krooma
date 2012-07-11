@@ -5,5 +5,5 @@ class Color < ActiveRecord::Base
             :uniqueness => { :case_sensitive => false, :scope => :external  }
 
   validates :external,
-            :presence => true
+            :inclusion => [true,false]
 end

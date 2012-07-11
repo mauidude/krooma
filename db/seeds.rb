@@ -41,15 +41,107 @@ makes = {
     }
 }
 
+random = Random.new
+
 ActiveRecord::Base.transaction do
+  body_styles = BodyStyle.create!([
+                                     {:name => "Sedan", :url_name => "sedan"},
+                                     {:name => "Coupe", :url_name => "coupe"},
+                                     {:name => "Convertible", :url_name => "convertible" },
+                                     {:name => "SUV", :url_name => "SUV" }
+                                 ])
+
+  exterior_colors = Color.create!([
+                                     {:name => "Black", :external => true },
+                                     {:name => "Silver", :external => true },
+                                     {:name => "Blue", :external => true },
+                                     {:name => "Red", :external => true },
+                                     {:name => "White", :external => true },
+                                     {:name => "Green", :external => true },
+                                     {:name => "Brown", :external => true },
+                                     {:name => "Gold", :external => true },
+                                     {:name => "Gray", :external => true },
+                                     {:name => "Other", :external => true }
+                                 ])
+
+  interior_colors = Color.create!([
+                                     {:name => "Black", :external => false },
+                                     {:name => "Tan", :external => false },
+                                     {:name => "Gray", :external => false },
+                                     {:name => "Dark Gray", :external => false },
+                                     {:name => "Other", :external => false }
+                                 ])
+
+  conditions = Condition.create!([
+                                    {:name => "New", :url_name => "new", :used => false },
+                                    {:name => "Excellent", :url_name => "excellent", :used => true },
+                                    {:name => "Great", :url_name => "great", :used => true },
+                                    {:name => "Fair", :url_name => "fair", :used => true },
+                                    {:name => "Poor", :url_name => "poor", :used => true }
+                                ])
+
+  years = ModelYear.create!([
+                               {:year => 2012},
+                               {:year => 2011},
+                               {:year => 2010},
+                               {:year => 2009},
+                               {:year => 2008},
+                               {:year => 2007},
+                               {:year => 2006},
+                               {:year => 2005},
+                               {:year => 2004},
+                               {:year => 2003},
+                           ])
+
+  transmissions = Transmission.create!([
+                                          {:name => "Automatic"},
+                                          {:name => "Manual"}
+                                      ])
+
   makes.each do |make_name, models|
     manufacturer = Manufacturer.create({name: make_name, url_name: make_name.dasherize})
 
     models.each do |model_name, trims|
       model = Model.create({name: model_name, url_name: model_name.dasherize, make: manufacturer})
 
-      trims.each do |trim_name|
-        trim = Trim.create({make: manufacturer, model: model, name: trim_name, url_name: trim_name.dasherize})
+      if trims.empty?
+        5.times do
+          Car.create!({
+            :asking_price => random.rand(10000...100000),
+            :body_style => body_styles[random.rand(body_styles.length)],
+            :condition => conditions[random.rand(conditions.length)],
+            :description => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet fermentum nunc. In hac habitasse platea dictumst. Integer pulvinar, elit vitae rhoncus lobortis, leo eros mattis est, sed posuere nibh enim at sapien. Nam a neque felis. Aenean et porta ipsum. Suspendisse potenti.",
+            :exterior_color =>  exterior_colors[random.rand(exterior_colors.length)],
+            :interior_color => interior_colors[0],
+            :make => manufacturer,
+            :model => model,
+            :model_year => years[random.rand(years.length)],
+            :poster_id => 0,
+            :transmission => transmissions[random.rand(transmissions.length)],
+            :trim => nil
+          })
+        end
+      else
+        trims.each do |trim_name|
+          trim = Trim.create({make: manufacturer, model: model, name: trim_name, url_name: trim_name.dasherize})
+
+          5.times do
+            Car.create!({
+               :asking_price => random.rand(10000...100000),
+               :body_style => body_styles[random.rand(body_styles.length)],
+               :condition => conditions[random.rand(conditions.length)],
+               :description => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet fermentum nunc. In hac habitasse platea dictumst. Integer pulvinar, elit vitae rhoncus lobortis, leo eros mattis est, sed posuere nibh enim at sapien. Nam a neque felis. Aenean et porta ipsum. Suspendisse potenti.",
+               :exterior_color =>  exterior_colors[random.rand(exterior_colors.length)],
+               :interior_color => interior_colors[1],
+               :make => manufacturer,
+               :model => model,
+               :model_year => years[random.rand(years.length)],
+               :poster_id => 0,
+               :transmission => transmissions[random.rand(transmissions.length)],
+               :trim => trim
+             })
+          end
+        end
       end
     end
   end

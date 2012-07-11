@@ -1,0 +1,12 @@
+.list-item.car
+  %ul.thumbnails.span2
+    %li
+      %a.thumbnail{:href => car_path(car) }
+        %img{:src => "http://lorempixum.com/100/75/transport"}
+  %div
+    =link_to car.summary, car_path(car)
+    -if car.new?
+      %span{:class => "label label-info"} New!
+    %p= truncate_safe car.description
+    %time{:pubdate => car.created_at}= "#{time_ago_in_words(car.created_at)} ago"
+    %span.asking_price= number_to_currency(car.asking_price, :precision => 0)

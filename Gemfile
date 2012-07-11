@@ -33,6 +33,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'shoulda'
   gem 'test-unit'
+  gem 'progress_bar'
 end
 
 

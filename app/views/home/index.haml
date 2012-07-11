@@ -4,7 +4,7 @@
       %h1 Find Your Dream Car
       %p Finding your perfect car has never been so easy. Just type what you're looking for and search!
       %p
-        =form_tag('/search', :method => :get, :class => "form-search") do
+        =form_tag(search_cars_path, :method => :get, :class => "form-search") do
           =text_field_tag 'q', nil, :placeholder => "Ex: 2012 Honda Civic", :class => "input-xlarge search-query"
           =button_tag "Search", :type => "submit", :class => "btn btn-primary"
 
