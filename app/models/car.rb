@@ -149,7 +149,7 @@ class Car < ActiveRecord::Base
 
       facet :make if params[:make].blank?
       facet :model if params[:model].blank?
-      facet :trim if params[:trim].blank?
+      facet :trim if params[:trim].blank? and !params[:model].blank?  #only facet on trim if a model is given
       facet :model_year, :sort => :index if params[:model_year].blank?
       facet :condition if params[:condition].blank?
       facet :body_style if params[:body_style].blank?

@@ -1,25 +1,22 @@
 -content_for :content do
-  .navbar
+  #header.navbar
     .navbar-inner
       .container-fluid
         %a.btn.btn-navbar{:data => {:target => ".nav-collapse", :toggle => "collapse"}}
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-      %a.brand{:href => "#"} Krooma
-      .container-fluid.nav-collapse
-        %ul.nav
-          %li= link_to "Link1", "/path1"
-          %li= link_to "Link2", "/path2"
-          %li= link_to "Link3", "/path3"
+      %a.brand{:href => root_path} Krooma
+      -#.container-fluid.nav-collapse
+        .row-fluid
+          = render :partial => "shared/search"
 
   .container-fluid
     .row-fluid
-      .span3
-        .well.sidebar-nav
-          =yield(:sidebar)
-
-      .span9
+      .span10
         =yield
+      .span2
+        .sidebar-nav
+          =yield(:sidebar)
 
 =render :file => "layouts/base"

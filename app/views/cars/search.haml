@@ -1,13 +1,44 @@
+.row-fluid
+  %ul.nav.nav-pills
+    -@applied_facets.each do |facet|
+      %li.active
+        =link_to "&times; #{facet.raw_value}".html_safe, search_without_parameter(facet.key)
+
+    -@facets.each do |facet|
+      -if facet.rows.length > 1
+        %li.dropdown{:id => "##{facet.name}_dropdown"}
+          %a.dropdown-toggle{:data => {:toggle => "dropdown", :href=> "##{facet.name}_dropdown"}}
+            = facet.name.to_s.humanize
+            %b.caret
+          %ul.dropdown-menu
+            -facet.rows.each do |row|
+              -new_params = params.clone
+              -new_params[facet.name] = row.value
+              %li= link_to "#{row.value} (#{row.count})", search_without_parameter(:page, new_params)
+
+.row-fluid
+  .car-alert-callout.well.disabled
+    .span7= render :partial => "shared/caralertsubscribe", :locals => {:collapsable => true}
+    .span5.page-count= "Cars #{@cars.offset + 1} to #{@cars.offset + @cars.per_page} of #{@cars.total_count}"
+
 =render :partial => "car", :collection => @cars
+
+.row-fluid
+  .car-alert-callout.well
+    .span7= render :partial => "shared/caralertsubscribe", :locals => {:collapsable => false}
+
 =will_paginate @cars, :previous_label => "&laquo;", :next_label => "&raquo;", :renderer => BootstrapPaginationLinkRenderer
 
 -content_for :sidebar do
+  =render "shared/ad"
+
+-#-content_for :sidebar do
   %ul.nav.nav-pills.nav-stacked
     -@applied_facets.each do |facet|
       %li.active
         =link_to "&times; #{facet.raw_value}".html_safe, search_without_parameter(facet.key)
 
-  %ul.nav.nav-list
+  -#%ul.nav.nav-list
     -@facets.each do |facet|
       -if facet.rows.length > 1
         %li.nav-header= facet.name.to_s.humanize

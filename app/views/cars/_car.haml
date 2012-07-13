@@ -2,7 +2,7 @@
   %ul.thumbnails.span2
     %li
       %a.thumbnail{:href => car_path(car) }
-        %img{:src => "http://lorempixum.com/100/75/transport"}
+        -#%img{:src => "http://lorempixum.com/100/75/transport"}
   %div
     =link_to car.summary, car_path(car)
     -if car.new?
