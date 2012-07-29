@@ -2,6 +2,7 @@ Krooma::Application.routes.draw do
   resources :cars, :only => [:show] do
     collection do
       get 'search'
+      resources :makes, :controller => "manufacturers", :only => [:index, :show]
     end
     member do
       get 'similar'

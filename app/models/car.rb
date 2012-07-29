@@ -136,6 +136,24 @@ class Car < ActiveRecord::Base
     "#{condition.used ? "Used" : "New"} #{model_year.year} #{make.name} #{model.name} #{trim == nil ? "" : (trim.name + " ")}#{body_style.name}"
   end
 
+  def to_param
+    "#{summary} #{id}".parameterize
+  end
+
+  def self.from_param(param)
+    match = /^.+?\-(?<id>\d+)$/.match param
+
+    raise ActiveRecord::RecordNotFound.new(:id => param) if !match || match[:id].blank?
+
+    car = Car.find match[:id]
+
+    if car.to_param != param
+      raise ActiveRecord::RecordNotFound.new(:id => param)
+    else
+      car
+    end
+  end
+
   def similar(params = {}, per_page = 10)
     results = Sunspot.more_like_this(self) do
       fields :make, :boost => 10
@@ -161,8 +179,8 @@ class Car < ActiveRecord::Base
 
     applied_facets = []
     applied_facets << AppliedFacet.new(:asking_price, asking_price, params[:asking_price]) unless asking_price.blank?
-    applied_facets <<  AppliedFacet.new(:make, params[:make]) unless params[:make].blank?
-    applied_facets <<  AppliedFacet.new(:model, params[:model]) unless params[:model].blank?
+    applied_facets << AppliedFacet.new(:make, params[:make]) unless params[:make].blank?
+    applied_facets << AppliedFacet.new(:model, params[:model]) unless params[:model].blank?
     applied_facets << AppliedFacet.new(:trim, params[:trim]) unless params[:trim].blank?
     applied_facets << AppliedFacet.new(:model_year, params[:model_year]) unless params[:model_year].blank?
     applied_facets << AppliedFacet.new(:condition, params[:condition]) unless params[:condition].blank?
@@ -171,7 +189,7 @@ class Car < ActiveRecord::Base
     applied_facets << AppliedFacet.new(:exterior, params[:exterior]) unless params[:exterior].blank?
     applied_facets << AppliedFacet.new(:transmission, params[:transmission]) unless params[:transmission].blank?
 
-    results = Car.search do
+    results = Car.search :include => [:make, :model, :trim, :model_year, :condition, :body_style, :interior_color, :exterior_color, :transmission] do
       fulltext params[:q] do
         boost_fields :summary => 3.0
         phrase_fields :summary => 3.0

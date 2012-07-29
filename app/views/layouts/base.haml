@@ -14,6 +14,8 @@
     %link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}
     %link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}
     %link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}
+    -if !@meta_robots.empty?
+      %meta{:name => "robots", :content => @meta_robots.join(',')}
 
   %body
     .container
@@ -37,7 +39,7 @@
                 %span.icon-bar
             .container.nav-collapse
               %ul.nav
-                %li= link_to "Cars By Make", "/path1"
+                %li= link_to "Cars By Make", makes_path
                 %li= link_to "About", "/path2"
     =javascript_include_tag "application"
     =yield(:scripts) if content_for?(:scripts)
