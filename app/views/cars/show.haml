@@ -1,0 +1,77 @@
+.page-header
+  %h1= @car.summary
+.row
+  .span2
+    %dl.well
+      %dt Asking Price
+      %dd= number_to_currency @car.asking_price
+      %dt Condition
+      %dd= @car.condition.name
+      %dt Exterior
+      %dd= @car.exterior_color.name
+      %dt Interior
+      %dd= @car.interior_color.name
+      %dt Transmission
+      %dd= @car.transmission.name
+      %button.btn.btn-primary.btn-large Contact User
+  .span4
+    %ul.thumbnails
+      %li.span4
+        %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
+          %img{:src => "http://placehold.it/360x268"}
+      %li.span1
+        %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
+          %img{:src => "http://placehold.it/70x52"}
+      %li.span1
+        %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
+          %img{:src => "http://placehold.it/70x52"}
+      %li.span1
+        %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
+          %img{:src => "http://placehold.it/70x52"}
+      %li.span1
+        %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
+          %img{:src => "http://placehold.it/70x52"}
+  .span4
+    %p= @car.description
+    %ul
+      %li= link_to "View All #{@car.make.name.pluralize}"
+      %li= link_to "View All #{@car.make.name} #{@car.model.name.pluralize}"
+
+-unless @similar_cars.empty?
+  .row
+    #similar.span8
+      %h3 Similar Cars
+      =render :collection => @similar_cars, :partial => "car"
+      =link_to "View All Similar Cars", similar_car_path(@car)
+
+
+#pictures.fade.modal.hide
+  .modal-header
+    %button{:type => :button, :class => :close, :data => {:dismiss => "modal"}}
+    %h3= "#{@car.summary} Pictures"
+  .modal-body
+    #carousel.carousel.slide
+      .carousel-inner
+        .item
+          %img{:src => "http://placehold.it/360x268"}
+        .item
+          %img{:src => "http://placehold.it/360x268"}
+        .item
+          %img{:src => "http://placehold.it/360x268"}
+        .item
+          %img{:src => "http://placehold.it/360x268"}
+        .item
+          %img{:src => "http://placehold.it/360x268"}
+
+    %a.carousel-control.left{:href => "#carousel", :data => {:slide => "prev"}} &lsaquo;
+    %a.carousel-control.right{:href => "#carousel", :data => {:slide => "next"}} &rsaquo;
+
+-content_for :sidebar do
+  =render "shared/ad"
+
+-content_for(:scripts) do
+  :javascript
+    $(document).ready(function() {
+      $('#pictures').modal({show:false});
+      $('#carousel').carousel();
+    });

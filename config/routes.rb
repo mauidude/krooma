@@ -3,7 +3,12 @@ Krooma::Application.routes.draw do
     collection do
       get 'search'
     end
+    member do
+      get 'similar'
+    end
   end
+
+  resources :car_alerts, :only => [:new, :create]
 
 
   root :to => "home#index"

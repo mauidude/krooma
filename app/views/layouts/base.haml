@@ -16,19 +16,28 @@
     %link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}
 
   %body
-    .container-fluid
+    .container
+      #header.navbar
+        .navbar-inner
+          %ul.nav.pull-left
+            %li= link_to "Find Cars", root_path
+            %li= link_to "Sell Your Car"
+          %ul.nav.pull-right
+            %li= link_to "Register"
+    .container
       =content_for?(:content) ? yield(:content) : yield
-    .container-fluid
+    .container
       %footer
         .navbar
           .navbar-inner
-            .container-fluid
+            .container
               %a.btn.btn-navbar{:data => {:target => ".nav-collapse", :toggle => "collapse"}}
                 %span.icon-bar
                 %span.icon-bar
                 %span.icon-bar
-            .container-fluid.nav-collapse
+            .container.nav-collapse
               %ul.nav
                 %li= link_to "Cars By Make", "/path1"
                 %li= link_to "About", "/path2"
     =javascript_include_tag "application"
+    =yield(:scripts) if content_for?(:scripts)

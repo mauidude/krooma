@@ -18,7 +18,19 @@ body
 
 .ad
 {
-    height: 300px;
-    width: 100%;
-    background: #ccc;
+    border: 1px solid red;
+}
+
+// simple_form adds abbr for required fields... don't want to show these
+form
+{
+    abbr
+    {
+        display: none;
+    }
+
+    &.form-inline .control-group
+    {
+        display: inline;
+    }
 }

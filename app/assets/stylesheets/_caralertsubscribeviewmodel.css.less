@@ -10,14 +10,22 @@
         font-size: larger;
     }
 
-    &.well.disabled
+    .message
     {
-        border-color: transparent;
-        background: transparent;
+        float: right;
+    }
 
-        form
+    &.disabled
+    {
+        .well
         {
-            display: none;
+            border-color: transparent;
+            background: transparent;
+
+            form
+            {
+                display: none;
+            }
         }
     }
 

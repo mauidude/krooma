@@ -10,6 +10,8 @@ gem 'haml'
 gem 'sunspot_rails', '~> 1.3.3'
 gem 'sunspot_solr', '~> 1.3.3'
 gem 'will_paginate', '~> 3.0.3'
+gem 'simple_form'
+#gem 'client_side_validations'
 
 
 # Gems used only for assets and not required

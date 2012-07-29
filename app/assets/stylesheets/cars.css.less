@@ -1,6 +1,8 @@
 /*
 *= require _caralertsubscribeviewmodel
 */
+@import 'twitter/bootstrap/variables';
+
 .car
 {
     margin-bottom: 2em;
@@ -8,16 +10,38 @@
 
     .thumbnails
     {
-        margin-right: .5em;
-    }
-
-    img
-    {
-        width: 100%;
+        margin-right: @gridGutterWidth;
     }
 }
 
 .page-count
 {
-    text-align: right;
+
+}
+
+.modal
+{
+    .modal-body
+    {
+        overflow-y: visible;
+    }
+    .carousel img
+    {
+        width: 100%;
+    }
+}
+
+// swap search results and facets non-mobile views
+@media(min-width: 481px)
+{
+    #results
+    {
+        float: right !important;
+        margin-left: auto;
+    }
+
+    #facets
+    {
+        float: left;
+    }
 }

@@ -1,8 +1,10 @@
-=form_tag(search_cars_path, :method => :get, :class => "form-search") do
+%form.form-search{:action => search_cars_path, :method => :get}
+  -#=form_tag(search_cars_path, :method => :get, :class => "form-search") do
   %fieldset
     .control-group
-      .controls
-        .input-append
-          %input{:type => "text", :placeholder=>"Ex: 2012 Honda Civic", :class => "input-large search-query"}<
-            %button{:type => "submit", :class => "btn btn-primary"}<
-              %i{:class => "icon-search"}
+      %input{:type => "text", :placeholder=>"Ex: 2012 Honda Civic", :class => "input-large search-query", :name => "q"}
+      .input-append
+        %input{:type => "text", :placeholder=>"Ex: Los Angeles, CA", :class => "input-large search-query", :name => "l"}<
+          %button{:type => "submit", :class => "btn btn-primary"}<
+            %i{:class => "icon-search"}
+            Find Cars

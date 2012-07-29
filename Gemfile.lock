@@ -118,6 +118,9 @@ GEM
       shoulda-matchers (~> 1.0.0)
     shoulda-context (1.0.0)
     shoulda-matchers (1.0.0)
+    simple_form (2.0.2)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     sprockets (2.1.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -161,6 +164,7 @@ DEPENDENCIES
   rails (= 3.2.6)
   rspec-rails
   shoulda
+  simple_form
   sunspot_rails (~> 1.3.3)
   sunspot_solr (~> 1.3.3)
   test-unit

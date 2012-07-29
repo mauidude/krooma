@@ -1,7 +1,7 @@
 class SearchResults
   attr_reader :results, :applied_facets
 
-  def initialize(raw_results, applied_facets)
+  def initialize(raw_results, applied_facets = [])
     @raw_results = raw_results
     @results = []
 

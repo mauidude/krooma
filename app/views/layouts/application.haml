@@ -1,18 +1,13 @@
 -content_for :content do
-  #header.navbar
-    .navbar-inner
-      .container-fluid
-        %a.btn.btn-navbar{:data => {:target => ".nav-collapse", :toggle => "collapse"}}
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
-      %a.brand{:href => root_path} Krooma
-      -#.container-fluid.nav-collapse
-        .row-fluid
-          = render :partial => "shared/search"
+  .row
+    .span2
+      %a.brand{:href => root_path}
+        %img{:src => asset_path("krooma.png"), :alt => "Krooma" }
+    .span10
+      =render :partial => "shared/search"
 
-  .container-fluid
-    .row-fluid
+  .container
+    .row
       .span10
         =yield
       .span2

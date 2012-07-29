@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120707220301) do
+ActiveRecord::Schema.define(:version => 20120713022529) do
 
   create_table "body_styles", :force => true do |t|
     t.string   "name",       :null => false
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(:version => 20120707220301) do
   end
 
   add_index "body_styles", ["url_name"], :name => "index_body_styles_on_url_name", :unique => true
+
+  create_table "car_alerts", :force => true do |t|
+    t.integer  "email_id",    :null => false
+    t.datetime "verified_at"
+    t.text     "search",      :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "cars", :force => true do |t|
     t.integer  "make_id",                         :null => false
@@ -58,6 +66,15 @@ ActiveRecord::Schema.define(:version => 20120707220301) do
   end
 
   add_index "conditions", ["url_name"], :name => "index_conditions_on_url_name", :unique => true
+
+  create_table "emails", :force => true do |t|
+    t.string   "address",     :null => false
+    t.datetime "verified_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "emails", ["address"], :name => "index_emails_on_address", :unique => true
 
   create_table "manufacturers", :force => true do |t|
     t.string   "name",       :null => false

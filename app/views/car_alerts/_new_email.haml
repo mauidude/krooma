@@ -1,0 +1,20 @@
+-#
+  %i{:class => "icon-envelope"}
+  -if collapsable
+    %a.title{:href=> "#", :data => {:bind => "click: toggleActive"}} Get new cars for this search by email
+  -else
+    %span.title Get new cars for this search by email
+  .message
+    =message
+  -alert = CarAlert.new(flash[:car_alert] || {:email => Email.new})
+  =simple_form_for alert, :validate => true, :html => {:class => "form-inline"} do |f|
+    -if !flash[:car_alert].nil? and !alert.valid?
+      =if notification = f.error_notification
+        .alert.alert-error
+          =notification
+    =f.fields_for :email do |email|
+      =email.input :address, :label => "My Email:", :wrapper => :inline
+
+    =hidden_field_tag :redirect, request.fullpath
+    =f.button :submit, "Save Alert", :class => "btn btn-primary"
+    %p.help-block You can cancel alerts at any time
