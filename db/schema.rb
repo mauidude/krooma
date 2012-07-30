@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120713022529) do
+ActiveRecord::Schema.define(:version => 20120730012449) do
 
   create_table "body_styles", :force => true do |t|
     t.string   "name",       :null => false
@@ -68,13 +68,28 @@ ActiveRecord::Schema.define(:version => 20120713022529) do
   add_index "conditions", ["url_name"], :name => "index_conditions_on_url_name", :unique => true
 
   create_table "emails", :force => true do |t|
-    t.string   "address",     :null => false
+    t.string   "email",                                  :null => false
     t.datetime "verified_at"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.string   "authentication_token"
   end
 
-  add_index "emails", ["address"], :name => "index_emails_on_address", :unique => true
+  add_index "emails", ["email"], :name => "index_emails_on_email", :unique => true
+  add_index "emails", ["reset_password_token"], :name => "index_emails_on_reset_password_token", :unique => true
 
   create_table "manufacturers", :force => true do |t|
     t.string   "name",       :null => false

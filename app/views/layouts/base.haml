@@ -25,9 +25,14 @@
             %li= link_to "Find Cars", root_path
             %li= link_to "Sell Your Car"
           %ul.nav.pull-right
-            %li= link_to "Register"
+            %li= email_signed_in? ? link_to("My Account", edit_email_registration_path) : link_to("Login", new_email_session_path)
+            %li= email_signed_in? ? link_to("Logout", destroy_email_session_path) : link_to("Register", new_email_registration_path)
     .container
+      -if n = notice
+        .alert.alert-success= n
+
       =content_for?(:content) ? yield(:content) : yield
+
     .container
       %footer
         .navbar

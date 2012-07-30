@@ -1,5 +1,6 @@
-.page-header
-  %h1 Cars By Make
+=content_for(:title) do
+  Cars By Make
+
 %ul.nav
   -@manufacturers.each do |manufacturer|
     %li.nav-header= link_to manufacturer.name, make_path(manufacturer)

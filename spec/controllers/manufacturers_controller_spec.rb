@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe MakesController do
+describe ManufacturersController do
 
 end

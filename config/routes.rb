@@ -10,6 +10,9 @@ Krooma::Application.routes.draw do
   end
 
   resources :car_alerts, :only => [:new, :create]
+  devise_for :emails,
+             :path => "users",
+             :path_names => {:sign_in => "login", :sign_out => "logout", :registration => "register", :sign_up => "" }
 
 
   root :to => "home#index"

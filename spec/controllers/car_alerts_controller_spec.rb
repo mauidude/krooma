@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe CarAlertController do
+describe CarAlertsController do
 
 end

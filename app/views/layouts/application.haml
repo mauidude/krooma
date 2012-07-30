@@ -6,6 +6,13 @@
     .span10
       =render :partial => "shared/search"
 
+  -if content_for?(:title)
+    .page-header
+      %h1= yield(:title)
+
+  -if a = alert
+    .alert.alert-error= a
+
   .container
     .row
       .span10
