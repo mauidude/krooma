@@ -99,10 +99,19 @@ ActiveRecord::Base.transaction do
                                       ])
 
   makes.each do |make_name, models|
-    manufacturer = Manufacturer.create({name: make_name, url_name: make_name.dasherize})
+    manufacturer = Manufacturer.create({
+      name: make_name,
+      url_name: make_name.dasherize,
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet fermentum nunc. In hac habitasse platea dictumst. Integer pulvinar, elit vitae rhoncus lobortis, leo eros mattis est, sed posuere nibh enim at sapien. Nam a neque felis. Aenean et porta ipsum. Suspendisse potenti."
+      })
 
     models.each do |model_name, trims|
-      model = Model.create({name: model_name, url_name: model_name.dasherize, make: manufacturer})
+      model = Model.create({
+        name: model_name,
+        url_name: model_name.dasherize,
+        make: manufacturer,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet fermentum nunc. In hac habitasse platea dictumst. Integer pulvinar, elit vitae rhoncus lobortis, leo eros mattis est, sed posuere nibh enim at sapien. Nam a neque felis. Aenean et porta ipsum. Suspendisse potenti."
+      })
 
       if trims.empty?
         5.times do

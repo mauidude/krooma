@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120730035938) do
+ActiveRecord::Schema.define(:version => 20120731030655) do
 
   create_table "body_styles", :force => true do |t|
     t.string   "name",       :null => false
@@ -99,10 +99,11 @@ ActiveRecord::Schema.define(:version => 20120730035938) do
   end
 
   create_table "manufacturers", :force => true do |t|
-    t.string   "name",       :null => false
-    t.string   "url_name",   :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",                        :null => false
+    t.string   "url_name",                    :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.text     "description", :default => "", :null => false
   end
 
   add_index "manufacturers", ["url_name"], :name => "index_manufacturers_on_url_name", :unique => true
@@ -123,11 +124,12 @@ ActiveRecord::Schema.define(:version => 20120730035938) do
   add_index "model_years_models", ["model_id", "model_year_id"], :name => "index_model_years_models_on_model_id_and_model_year_id", :unique => true
 
   create_table "models", :force => true do |t|
-    t.string   "name",       :null => false
-    t.string   "url_name",   :null => false
-    t.integer  "make_id",    :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",                        :null => false
+    t.string   "url_name",                    :null => false
+    t.integer  "make_id",                     :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.text     "description", :default => "", :null => false
   end
 
   add_index "models", ["url_name"], :name => "index_models_on_url_name", :unique => true

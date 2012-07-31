@@ -5,5 +5,6 @@ FactoryGirl.define do
     name "Civic"
     url_name "civic"
     association :make, factory: :manufacturer
+    description "...."
   end
 end
