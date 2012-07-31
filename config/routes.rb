@@ -2,7 +2,11 @@ Krooma::Application.routes.draw do
   resources :cars, :only => [:show] do
     collection do
       get 'search'
-      resources :makes, :controller => "manufacturers", :only => [:index, :show]
+
+      resources :makes, :controller => "manufacturers", :only => [:index, :show] do
+        #resources :models, :only => [:show]
+        get ':id' => 'models#show', :as => 'model'
+      end
     end
     member do
       get 'similar'

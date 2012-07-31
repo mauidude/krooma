@@ -19,6 +19,6 @@
         =yield
       .span2
         .sidebar-nav
-          =yield(:sidebar)
+          =content_for?(:sidebar)? yield(:sidebar) : render("shared/ad")
 
 =render :file => "layouts/base"

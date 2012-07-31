@@ -5,6 +5,7 @@ describe Manufacturer do
 
   context "associations" do
     it { should have_many(:models) }
+    it { should have_one :logo }
   end
 
   context "validations" do

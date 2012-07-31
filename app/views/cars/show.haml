@@ -1,5 +1,5 @@
 =content_for(:title) do
-  =@car.summary
+  ="#{@car.summary} For Sale"
 .row
   .span2
     %dl.well
@@ -34,13 +34,13 @@
   .span4
     %p= @car.description
     %ul
-      %li= link_to "View All #{@car.make.name.pluralize}"
-      %li= link_to "View All #{@car.make.name} #{@car.model.name.pluralize}"
+      %li= link_to "View All #{@car.make.name.pluralize} For Sale", make_path(@car.make)
+      %li= link_to "View All #{@car.make.name} #{@car.model.name.pluralize} For Sale", make_model_path(@car.make, @car.model)
 
 -unless @similar_cars.empty?
   .row
     #similar.span8
-      %h3 Similar Cars
+      %h3 Similar Cars For Sale
       =render :collection => @similar_cars, :partial => "car"
       =link_to "View All Similar Cars", similar_car_path(@car)
 
@@ -65,9 +65,6 @@
 
     %a.carousel-control.left{:href => "#carousel", :data => {:slide => "prev"}} &lsaquo;
     %a.carousel-control.right{:href => "#carousel", :data => {:slide => "next"}} &rsaquo;
-
--content_for :sidebar do
-  =render "shared/ad"
 
 -content_for(:scripts) do
   :javascript

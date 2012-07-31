@@ -31,9 +31,6 @@
 
 =will_paginate @cars, :previous_label => "&laquo;", :next_label => "&raquo;", :renderer => BootstrapPaginationLinkRenderer
 
--content_for :sidebar do
-  =render "shared/ad"
-
 -#-content_for :sidebar do
   %ul.nav.nav-pills.nav-stacked
     -@applied_facets.each do |facet|

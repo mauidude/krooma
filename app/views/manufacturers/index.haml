@@ -1,8 +1,9 @@
 =content_for(:title) do
   Cars By Make
 
-%ul.nav
+%ul.nav.nav-list
   -@manufacturers.each do |manufacturer|
-    %li.nav-header= link_to manufacturer.name, make_path(manufacturer)
-    -manufacturer.models.each do |model|
-      %li= link_to model.name
+    =link_to manufacturer.name, make_path(manufacturer)
+    %ul.nav.nav-list
+      -manufacturer.models.each do |model|
+        %li= link_to model.name

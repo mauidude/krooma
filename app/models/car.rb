@@ -236,6 +236,7 @@ class Car < ActiveRecord::Base
       end
 
       paginate :page => (params[:page] || 1), :per_page => per_page
+      order_by params[:order_by][:field], params[:order_by][:direction] || :asc unless params[:order_by].blank?
     end
 
     SearchResults.new(results, applied_facets)

@@ -1,0 +1,16 @@
+-content_for :title do
+  ="#{@manufacturer.name} #{@model.name}"
+
+.row
+  .span10
+    %p
+      %img{:src => "http://placehold.it/300x300", :alt => "#{@manufacturer.name} Logo", :align => "left"}
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo congue dolor et semper. Mauris nunc leo, faucibus id molestie in, bibendum vel est. Proin ornare erat ac lorem tincidunt rhoncus. Donec volutpat consectetur ipsum vitae volutpat. Donec dictum accumsan quam a pharetra. Aliquam eu turpis ut est facilisis vehicula semper vitae ligula. Integer feugiat tortor ut massa placerat quis volutpat eros tempus. In non risus tellus, nec volutpat purus. Aliquam tempor dignissim turpis sed vulputate. Donec pellentesque faucibus nulla, vel dapibus nisl consequat quis. Duis facilisis diam risus.
+    %ul
+      %li= link_to "View All #{@manufacturer.name.pluralize}", make_path(@manufacturer)
+
+-unless @cars.empty?
+  .row
+    .span10
+      %h2= "#{@manufacturer.name} #{@model.name.pluralize} For Sale"
+      =render :collection => @cars, :partial => "cars/car"
