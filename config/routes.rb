@@ -1,4 +1,5 @@
 Krooma::Application.routes.draw do
+  match '/location/suggest' => "location#suggest"
   resources :cars, :only => [:show] do
     collection do
       get 'search'

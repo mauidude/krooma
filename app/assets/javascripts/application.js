@@ -15,3 +15,36 @@
 //= require twitter/bootstrap
 //= require knockout
 //= require_tree .
+
+$(document).ready(function() {
+    $('input[data-typeahead-type]').each(function(){
+        var $this = $(this);
+        var type = $this.data('typeahead-type');
+        $this.typeahead({
+            matcher: function() { return true; }
+        });
+
+        var timer = null;
+
+        $this.keyup(function(){
+            if (timer) {
+                clearTimeout(timer);
+            }
+
+            timer = setTimeout(function() {
+                if ($this.val().length >= 3) {
+                    $.ajax({
+                        url: '/' + type + '/suggest.json?q=' + escape($this.val()),
+                        success: function(data) {
+                            $this.data('typeahead').source = data;
+                        }
+                    });
+                }
+                else {
+                    $this.data('typeahead').source = [];
+                }
+            }, 100);
+        });
+    });
+
+});

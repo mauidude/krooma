@@ -35,8 +35,6 @@ class SearchResults
       if @hit.highlights(id).empty?
         @result.send(id)
       else
-        result = ''
-
         items = []
         @hit.highlights(id).each do |hl|
           items << hl.format { |word| "<strong>#{word}</strong>" }

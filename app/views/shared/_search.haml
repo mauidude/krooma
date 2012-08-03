@@ -4,7 +4,7 @@
     .control-group
       %input{:type => "text", :placeholder=>"Ex: 2012 Honda Civic", :class => "input-large search-query", :name => "q"}
       .input-append
-        %input{:type => "text", :placeholder=>"Ex: Los Angeles, CA", :class => "input-large search-query", :name => "l"}<
+        %input{:type => "text", :placeholder=>"Ex: Los Angeles, CA", :class => "input-large search-query", :name => "l", :data => {:"typeahead-type" => "location"}}<
           %button{:type => "submit", :class => "btn btn-primary"}<
             %i{:class => "icon-search"}
             Find Cars

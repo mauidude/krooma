@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731030655) do
+ActiveRecord::Schema.define(:version => 20120802030812) do
 
   create_table "body_styles", :force => true do |t|
     t.string   "name",       :null => false
@@ -90,6 +90,19 @@ ActiveRecord::Schema.define(:version => 20120731030655) do
 
   add_index "emails", ["email"], :name => "index_emails_on_email", :unique => true
   add_index "emails", ["reset_password_token"], :name => "index_emails_on_reset_password_token", :unique => true
+
+  create_table "locations", :force => true do |t|
+    t.string  "postal_code",  :null => false
+    t.string  "city",         :null => false
+    t.string  "county"
+    t.string  "state_code",   :null => false
+    t.string  "country_code", :null => false
+    t.string  "timezone"
+    t.float   "latitude",     :null => false
+    t.float   "longitude",    :null => false
+    t.string  "region"
+    t.integer "population"
+  end
 
   create_table "logos", :force => true do |t|
     t.integer  "manufacturer_id", :null => false
