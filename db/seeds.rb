@@ -41,6 +41,14 @@ makes = {
     }
 }
 
+logos = {
+    "BMW" => "http://upload.wikimedia.org/wikipedia/en/thumb/f/f9/BMW_Logo.svg/200px-BMW_Logo.svg.png",
+    "Honda" => "http://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Honda-logo.svg/200px-Honda-logo.svg.png",
+    "Toyota" => "http://upload.wikimedia.org/wikipedia/en/thumb/e/e7/Toyota.svg/200px-Toyota.svg.png",
+    "Acura" => "http://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Acura_logo.svg/200px-Acura_logo.svg.png",
+    "Lexus" => "http://upload.wikimedia.org/wikipedia/en/thumb/d/d1/Lexus_division_emblem.svg/200px-Lexus_division_emblem.svg.png"
+}
+
 random = Random.new
 
 ActiveRecord::Base.transaction do
@@ -98,12 +106,18 @@ ActiveRecord::Base.transaction do
                                           {:name => "Manual"}
                                       ])
 
+  locations = Location.find_all_by_county_and_state_code "Orange County", "CA"
+
   makes.each do |make_name, models|
     manufacturer = Manufacturer.create({
       name: make_name,
       url_name: make_name.dasherize,
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet fermentum nunc. In hac habitasse platea dictumst. Integer pulvinar, elit vitae rhoncus lobortis, leo eros mattis est, sed posuere nibh enim at sapien. Nam a neque felis. Aenean et porta ipsum. Suspendisse potenti."
       })
+
+    logo = Logo.create({
+      url: logos[make_name]
+    })
 
     models.each do |model_name, trims|
       model = Model.create({
@@ -127,7 +141,9 @@ ActiveRecord::Base.transaction do
             :model_year => years[random.rand(years.length)],
             :poster_id => 0,
             :transmission => transmissions[random.rand(transmissions.length)],
-            :trim => nil
+            :trim => nil,
+            :mileage => random.rand(100000),
+            :location => locations[random.rand(locations.length)]
           })
         end
       else
@@ -147,7 +163,9 @@ ActiveRecord::Base.transaction do
                :model_year => years[random.rand(years.length)],
                :poster_id => 0,
                :transmission => transmissions[random.rand(transmissions.length)],
-               :trim => trim
+               :trim => trim,
+               :mileage => random.rand(100000),
+               :location => locations[random.rand(locations.length)]
              })
           end
         end

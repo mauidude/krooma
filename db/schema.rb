@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120802030812) do
+ActiveRecord::Schema.define(:version => 20120803031121) do
 
   create_table "body_styles", :force => true do |t|
     t.string   "name",       :null => false
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(:version => 20120802030812) do
     t.integer  "exterior_color_id",               :null => false
     t.integer  "body_style_id",                   :null => false
     t.integer  "transmission_id",                 :null => false
+    t.integer  "location_id",                     :null => false
+    t.integer  "mileage",                         :null => false
   end
 
   create_table "colors", :force => true do |t|

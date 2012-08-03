@@ -21,8 +21,9 @@ module CarsHelper
     description << params[:model] unless params[:model].blank?
     description << params[:trim] unless params[:trim].blank?
     description << Car.model_name.pluralize
+    description << "with #{params[:mileage]} miles" unless params[:mileage].blank?
     description << "with #{params[:interior]} Interior" unless params[:interior].blank?
-    description << "between #{params[:asking_price]}" unless params[:asking_price].blank?
+    description << "#{/^\$/.match(params[:asking_price]) ? "between " : ""}#{params[:asking_price]}" unless params[:asking_price].blank?
     description << "near #{@location}" unless @location.blank?
 
     description.join ' '

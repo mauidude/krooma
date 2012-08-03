@@ -3,10 +3,14 @@
     %li
       %a.thumbnail{:href => car_path(car) }
         %img{:src => "http://placehold.it/170x127"}
-  %div
-    =link_to car.summary, car_path(car)
-    -if car.new?
-      %span{:class => "label label-info"} New!
+  .span6
+    .row
+      %span.span4.title
+        -if car.new?
+          %span{:class => "label label-info"}= link_to "New!", car_path(car)
+        =link_to car.summary, car_path(car)
+      %span.span1.mileage= "#{number_with_delimiter car.mileage} mi"
+      %span.span1.asking_price= number_to_currency(car.asking_price, :precision => 0)
     %p= truncate_safe car.description
+
     %time{:pubdate => car.created_at}= "#{time_ago_in_words(car.created_at)} ago"
-    %span.asking_price= number_to_currency(car.asking_price, :precision => 0)

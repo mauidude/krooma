@@ -9,6 +9,7 @@ class Car < ActiveRecord::Base
   belongs_to :exterior_color, :class_name => "Color", :conditions => "external = true"
   belongs_to :body_style
   belongs_to :transmission
+  belongs_to :location
 
   validates :make_id,
             :presence => true
@@ -45,6 +46,13 @@ class Car < ActiveRecord::Base
             :vin => true
 
   validates :description,
+            :presence => true
+
+  validates :mileage,
+            :presence => true,
+            :numericality => {:only_integer => true, :greater_than_or_equal_to => 0 }
+
+  validates :location_id,
             :presence => true
 
   searchable do
@@ -87,6 +95,12 @@ class Car < ActiveRecord::Base
       transmission.name
     end
 
+    integer :mileage
+
+    string :location do
+      location.name
+    end
+
     text :summary, :stored => true, :more_like_this => true
     text :description, :stored => true
 
@@ -125,6 +139,8 @@ class Car < ActiveRecord::Base
     text :transmission, :more_like_this => true do
       transmission.name
     end
+
+    location(:coordinates) { Sunspot::Util::Coordinates.new(location.latitude, location.longitude)}
   end
 
   def new?
@@ -176,6 +192,7 @@ class Car < ActiveRecord::Base
 
   def self.do_search(params = {}, per_page = 10)
     asking_price = parse_asking_price params[:asking_price]
+    mileage = parse_mileage params[:mileage]
 
     applied_facets = []
     applied_facets << AppliedFacet.new(:asking_price, asking_price, params[:asking_price]) unless asking_price.blank?
@@ -188,8 +205,9 @@ class Car < ActiveRecord::Base
     applied_facets << AppliedFacet.new(:interior, params[:interior]) unless params[:interior].blank?
     applied_facets << AppliedFacet.new(:exterior, params[:exterior]) unless params[:exterior].blank?
     applied_facets << AppliedFacet.new(:transmission, params[:transmission]) unless params[:transmission].blank?
+    applied_facets << AppliedFacet.new(:mileage, mileage, "#{params[:mileage]} miles") unless mileage.blank?
 
-    results = Car.search :include => [:make, :model, :trim, :model_year, :condition, :body_style, :interior_color, :exterior_color, :transmission] do
+    results = Car.search :include => [:make, :model, :trim, :model_year, :condition, :body_style, :interior_color, :exterior_color, :transmission, :location] do
       fulltext params[:q] do
         boost_fields :summary => 3.0
         phrase_fields :summary => 3.0
@@ -221,8 +239,18 @@ class Car < ActiveRecord::Base
         end
       end
 
+      facet :mileage do
+        step = 10000
+        0.step(100000, step) do |i|
+          row(:"Under #{i/1000}k") do
+            with :mileage, Range.new(0, i, true)
+          end
+        end
+      end if mileage.blank?
+
+      facet :location, :limit => 10 if params[:location].blank?
       facet :make if params[:make].blank?
-      facet :model if params[:model].blank?
+      facet :model if params[:model].blank? and !params[:make].blank? #only facet on model if make is given
       facet :trim if params[:trim].blank? and !params[:model].blank?  #only facet on trim if a model is given
       facet :model_year, :sort => :index if params[:model_year].blank?
       facet :condition if params[:condition].blank?
@@ -257,5 +285,14 @@ class Car < ActiveRecord::Base
       end
     end
     asking_price
+  end
+
+  def self.parse_mileage(mileage)
+    unless mileage.blank?
+      mileage = mileage.gsub /^under\s+/i, ''
+      mileage = mileage.gsub /(\d+)k/, '\1000'
+
+      Range.new(0, mileage.to_i, true)
+    end
   end
 end
