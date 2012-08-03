@@ -31,12 +31,18 @@ describe Car do
 
     describe "#asking_price" do
       it { should validate_presence_of :asking_price }
-      it { should validate_numericality_of(:asking_price).is_greater_than_or_equal_to(0) }
+      it { should validate_numericality_of(:asking_price) }
+      it { should_not allow_value(-1).for(:asking_price) }
+      it { should_not allow_value(0).for(:asking_price) }
+      it { should allow_value(1).for(:asking_price) }
     end
 
     describe "#mileage" do
       it { should validate_presence_of :mileage }
-      it { should validate_numericality_of(:mileage).is_greater_than_or_equal_to(0) }
+      it { should validate_numericality_of(:mileage) }
+      it { should_not allow_value(-1).for(:mileage) }
+      it { should allow_value(0).for(:mileage) }
+      it { should allow_value(1).for(:mileage) }
     end
 
     describe "#vin" do
