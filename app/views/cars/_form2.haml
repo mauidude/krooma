@@ -1,0 +1,50 @@
+%h2 What's it got?
+=f.input :transmission_id,
+:collection => Transmission.order(:name),
+:prompt => "Select transmission"
+
+=f.association :features,
+:collection => Feature.order(:name),
+:as => :check_boxes
+
+=f.input :description,
+:as => :text,
+:input_html => {:rows => 5},
+:hint => "Anything else about the car you'd like to tell us about"
+
+=f.input :current_step, :as => :hidden
+
+=f.input :make_id,
+  :as => :hidden
+
+=f.input :model_id,
+  :as => :hidden
+
+=f.input :trim_id,
+  :as => :hidden
+
+=f.input :model_year_id,
+  :as => :hidden
+
+=f.input :condition_id,
+  :as => :hidden
+
+=f.input :mileage,
+  :as => :hidden
+
+=f.input :body_style_id,
+  :as => :hidden
+
+=f.input :interior_color_id,
+  :as => :hidden
+
+=f.input :exterior_color_id,
+  :as => :hidden
+
+-@car.photos.each do |photo|
+  %input{:type => :hidden, :name => "car[photos_attributes][][thumbnail_url]", :value => photo.thumbnail_url}
+  %input{:type => :hidden, :name => "car[photos_attributes][][url]", :value => photo.url}
+
+.form-actions
+  =f.button :submit, "Previous", :class => "btn"
+  =f.button :submit, "Continue", :class => "btn btn-primary"

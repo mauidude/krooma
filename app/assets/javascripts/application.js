@@ -19,6 +19,7 @@
 $(document).ready(function() {
     $('input[data-typeahead-type]').each(function(){
         var $this = $(this);
+        $this.attr('autocomplete', 'off');
         var type = $this.data('typeahead-type');
         $this.typeahead({
             matcher: function() { return true; }

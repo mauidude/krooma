@@ -14,6 +14,7 @@ describe Car do
     it { should belong_to :body_style }
     it { should belong_to :transmission }
     it { should belong_to :location }
+    it { should have_and_belong_to_many :features }
   end
 
   context "validations" do

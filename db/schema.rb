@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120803031121) do
+ActiveRecord::Schema.define(:version => 20121021225841) do
 
   create_table "body_styles", :force => true do |t|
     t.string   "name",       :null => false
@@ -49,6 +49,13 @@ ActiveRecord::Schema.define(:version => 20120803031121) do
     t.integer  "location_id",                     :null => false
     t.integer  "mileage",                         :null => false
   end
+
+  create_table "cars_features", :force => true do |t|
+    t.integer "car_id",     :null => false
+    t.integer "feature_id", :null => false
+  end
+
+  add_index "cars_features", ["car_id", "feature_id"], :name => "index_cars_features_on_car_id_and_feature_id", :unique => true
 
   create_table "colors", :force => true do |t|
     t.string   "name",       :null => false
@@ -93,6 +100,14 @@ ActiveRecord::Schema.define(:version => 20120803031121) do
   add_index "emails", ["email"], :name => "index_emails_on_email", :unique => true
   add_index "emails", ["reset_password_token"], :name => "index_emails_on_reset_password_token", :unique => true
 
+  create_table "features", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "features", ["name"], :name => "index_features_on_name", :unique => true
+
   create_table "locations", :force => true do |t|
     t.string  "postal_code",  :null => false
     t.string  "city",         :null => false
@@ -123,6 +138,14 @@ ActiveRecord::Schema.define(:version => 20120803031121) do
 
   add_index "manufacturers", ["url_name"], :name => "index_manufacturers_on_url_name", :unique => true
 
+  create_table "messages", :force => true do |t|
+    t.integer  "car_id",       :null => false
+    t.integer  "recipient_id", :null => false
+    t.text     "text",         :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "model_years", :force => true do |t|
     t.integer  "year",       :null => false
     t.datetime "created_at", :null => false
@@ -148,6 +171,14 @@ ActiveRecord::Schema.define(:version => 20120803031121) do
   end
 
   add_index "models", ["url_name"], :name => "index_models_on_url_name", :unique => true
+
+  create_table "photos", :force => true do |t|
+    t.integer  "car_id",                        :null => false
+    t.string   "thumbnail_url", :limit => 1024, :null => false
+    t.string   "url",           :limit => 1024, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "transmissions", :force => true do |t|
     t.string   "name",       :null => false

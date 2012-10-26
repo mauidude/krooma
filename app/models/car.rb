@@ -2,7 +2,7 @@ class Car < ActiveRecord::Base
   belongs_to :make, :class_name => "Manufacturer"
   belongs_to :model
   belongs_to :trim
-  belongs_to :poster, :class_name => "User"
+  belongs_to :poster, :class_name => "Email"
   belongs_to :model_year
   belongs_to :condition
   belongs_to :interior_color, :class_name => "Color", :conditions => "external = false"
@@ -10,50 +10,105 @@ class Car < ActiveRecord::Base
   belongs_to :body_style
   belongs_to :transmission
   belongs_to :location
+  has_and_belongs_to_many :features
+  has_many :photos
+  has_one :default_photo, :class_name => "Photo"
+
+  accepts_nested_attributes_for :poster
+  accepts_nested_attributes_for :photos
+
+
+  def current_step
+    @current_step.nil? ? nil : @current_step.to_i
+  end
+
+  def current_step=(step)
+    @current_step = step
+  end
+
+  def make_url_name
+    self.make.nil? ? nil : self.make.url_name
+  end
+
+  def make_url_name=(url_name)
+    self.make_id = Manufacturer.find_by_url_name(url_name).id
+  end
+
+  def model_url_name
+    self.model.nil? ? nil : self.model_url_name
+  end
+
+  def model_url_name=(url_name)
+    self.model_id = Model.find_by_url_name(url_name).id
+  end
+
+  def location_name
+    self.location.nil? ? nil : self.location.name
+  end
+
+  def location_name=(name)
+    self.location = Location.find(name)
+  end
+
+  validates :current_step,
+            :numericality => {:only_integer => true, :greater_than_or_equal_to => 0, :less_than => 4}
 
   validates :make_id,
-            :presence => true
+            :presence => true,
+            :if => Proc.new { should_validate?(0) }
 
   validates :model_id,
-            :presence => true
+            :presence => true,
+            :if => Proc.new { should_validate?(0) }
 
-  validates :poster_id,
-            :presence => true
+  #validates :poster_id,
+  #          :presence => true,
+  #          :if => Proc.new { should_validate?(3) }
 
   validates :model_year_id,
-            :presence => true
+            :presence => true,
+            :if => Proc.new { should_validate?(0) }
 
   validates :interior_color_id,
-            :presence => true
+            :presence => true,
+            :if => Proc.new { should_validate?(1) }
 
   validates :exterior_color_id,
-            :presence => true
+            :presence => true,
+            :if => Proc.new { should_validate?(1) }
 
   validates :body_style_id,
-            :presence => true
+            :presence => true,
+            :if => Proc.new { should_validate?(1) }
 
   validates :transmission_id,
-            :presence => true
+            :presence => true,
+            :if => Proc.new { should_validate?(2) }
 
   validates :asking_price,
             :presence => true,
-            :numericality => { :only_integer => true, :greater_than => 0 }
+            :numericality => { :only_integer => true, :greater_than => 0 },
+            :if => Proc.new { should_validate?(3) }
 
   validates :condition_id,
-            :presence => true
+            :presence => true,
+            :if => Proc.new { should_validate?(1) }
 
   validates :vin,
-            :vin => true
+            :vin => {:allow_blank => true}
 
   validates :description,
-            :presence => true
+            :presence => true,
+            :if => Proc.new { should_validate?(2) }
 
   validates :mileage,
             :presence => true,
-            :numericality => {:only_integer => true, :greater_than_or_equal_to => 0 }
+            :numericality => {:only_integer => true, :greater_than_or_equal_to => 0 },
+            :if => Proc.new { should_validate?(1) }
 
   validates :location_id,
-            :presence => true
+            :presence => true,
+            :if => Proc.new { should_validate?(3) }
 
   searchable do
     integer :asking_price
@@ -99,6 +154,10 @@ class Car < ActiveRecord::Base
 
     string :location do
       location.name
+    end
+
+    string :options, :multiple => true do
+      features.map { |feature| feature.name }
     end
 
     text :summary, :stored => true, :more_like_this => true
@@ -191,6 +250,8 @@ class Car < ActiveRecord::Base
   end
 
   def self.do_search(params = {}, per_page = 10)
+    facets = {}
+
     asking_price = parse_asking_price params[:asking_price]
     mileage = parse_mileage params[:mileage]
 
@@ -206,8 +267,9 @@ class Car < ActiveRecord::Base
     applied_facets << AppliedFacet.new(:exterior, params[:exterior]) unless params[:exterior].blank?
     applied_facets << AppliedFacet.new(:transmission, params[:transmission]) unless params[:transmission].blank?
     applied_facets << AppliedFacet.new(:mileage, mileage, "#{params[:mileage]} miles") unless mileage.blank?
+    applied_facets << AppliedFacet.new(:options, params[:options]) unless params[:options].blank?
 
-    results = Car.search :include => [:make, :model, :trim, :model_year, :condition, :body_style, :interior_color, :exterior_color, :transmission, :location] do
+    results = Car.search :include => [:make, :model, :trim, :model_year, :condition, :body_style, :interior_color, :exterior_color, :transmission, :location, :default_photo] do
       fulltext params[:q] do
         boost_fields :summary => 3.0
         phrase_fields :summary => 3.0
@@ -218,6 +280,11 @@ class Car < ActiveRecord::Base
                   :merge_contiguous_fragments => true,
                   :max_snippets => 5
       end unless params[:q].blank?
+
+
+      applied_facets.each do |facet|
+        facets[facet.key] = with facet.key, facet.value
+      end
 
       facet(:asking_price) do
         row(:"Under $5k") do
@@ -248,6 +315,9 @@ class Car < ActiveRecord::Base
         end
       end if mileage.blank?
 
+      # always show
+      facet :options, :limit => 10, :exclude => facets[:options]
+
       facet :location, :limit => 10 if params[:location].blank?
       facet :make if params[:make].blank?
       facet :model if params[:model].blank? and !params[:make].blank? #only facet on model if make is given
@@ -259,9 +329,6 @@ class Car < ActiveRecord::Base
       facet :exterior if params[:exterior].blank?
       facet :transmission if params[:transmission].blank?
 
-      applied_facets.each do |facet|
-        with facet.key, facet.value
-      end
 
       paginate :page => (params[:page] || 1), :per_page => per_page
       order_by params[:order_by][:field], params[:order_by][:direction] || :asc unless params[:order_by].blank?
@@ -272,6 +339,11 @@ class Car < ActiveRecord::Base
 
 
   private
+
+  def should_validate?(step)
+     self.current_step.nil? || step <= self.current_step
+  end
+
   def self.parse_asking_price(asking_price)
     unless asking_price.blank?
       asking_price = asking_price.gsub /\$(\d+)k/, '\1000'

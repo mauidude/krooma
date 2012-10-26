@@ -1,0 +1,20 @@
+-content_for :title do
+  Sell Your Car
+
+#progress.subnav
+  %ul.nav.nav-pills
+    %li{:class => @car.current_step == 0 ? :active : "" }
+      %a Step 1
+    %li{:class => @car.current_step == 1 ? :active : "" }
+      %a Step 2
+    %li{:class => @car.current_step == 2 ? :active : "" }
+      %a Step 3
+    %li{:class => @car.current_step == 3 ? :active : "" }
+      %a Step 4
+    %li
+      %a Success!
+
+= simple_form_for(@car, :html => { :method => :post, :class => "well, form-horizontal"}) do |f|
+  = f.error_notification
+  =render :partial => "form#{@car.current_step}", :locals => {:f => f}
+

@@ -1,10 +1,10 @@
 =content_for(:title) do
-  ="#{@car.summary} For Sale"
+  ="#{@car.summary} in #{@car.location.name} For Sale"
 .row
   .span2
     %dl.well
       %dt Asking Price
-      %dd= number_to_currency @car.asking_price
+      %dd= number_to_currency @car.asking_price, :precision => 0
       %dt Condition
       %dd= @car.condition.name
       %dt Exterior
@@ -13,26 +13,26 @@
       %dd= @car.interior_color.name
       %dt Transmission
       %dd= @car.transmission.name
-      %button.btn.btn-primary.btn-large Contact User
+      %dt Location
+      %dd= @car.location.name
+      %a.btn.btn-primary.btn-large{:href => "#contact", :data => {:toggle => "modal"}} Contact User
   .span4
     %ul.thumbnails
-      %li.span4
-        %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
-          %img{:src => "http://placehold.it/360x268"}
-      %li.span1
-        %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
-          %img{:src => "http://placehold.it/70x52"}
-      %li.span1
-        %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
-          %img{:src => "http://placehold.it/70x52"}
-      %li.span1
-        %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
-          %img{:src => "http://placehold.it/70x52"}
-      %li.span1
-        %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
-          %img{:src => "http://placehold.it/70x52"}
+      -@car.photos.each_with_index do |photo,i|
+        -if i == 0
+          %li.span4
+            %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
+              %img{:src => photo.url}
+        -else
+          %li.span1
+            %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
+              %img{:src => photo.thumbnail_url, :width => 70, :height => 52}
   .span4
     %p= @car.description
+    %ul
+      -@car.features.each do |feature|
+        %li
+          %span.label= feature.name.parameterize
     %ul
       %li= link_to "View All #{@car.make.name.pluralize} For Sale", make_path(@car.make)
       %li= link_to "View All #{@car.make.name} #{@car.model.name.pluralize} For Sale", make_model_path(@car.make, @car.model)
@@ -47,28 +47,35 @@
 
 #pictures.fade.modal.hide
   .modal-header
-    %button{:type => :button, :class => :close, :data => {:dismiss => "modal"}}
+    %button{:type => :button, :class => :close, :data => {:dismiss => "modal"}} &times;
     %h3= "#{@car.summary} Pictures"
   .modal-body
     #carousel.carousel.slide
       .carousel-inner
-        .item
-          %img{:src => "http://placehold.it/360x268"}
-        .item
-          %img{:src => "http://placehold.it/360x268"}
-        .item
-          %img{:src => "http://placehold.it/360x268"}
-        .item
-          %img{:src => "http://placehold.it/360x268"}
-        .item
-          %img{:src => "http://placehold.it/360x268"}
+        -@car.photos.each_with_index do |photo, i|
+          %div{:class => [:item, i == 0 && "active"]}
+            %img{:src => photo.url}
 
     %a.carousel-control.left{:href => "#carousel", :data => {:slide => "prev"}} &lsaquo;
     %a.carousel-control.right{:href => "#carousel", :data => {:slide => "next"}} &rsaquo;
 
+#contact.fade.modal.hide
+  .modal-header
+    %button{:type => :button, :class => :close, :data => {:dismiss => "modal"}} &times;
+    %h3= "Contact User"
+  =simple_form_for Message.new do |f|
+    .modal-body
+      =f.input :text,
+        :as => :text,
+        :input_html => {:rows => 5}
+
+    .modal-footer
+      =f.button :button, "Cancel", :data => {:dismiss => "modal"}
+      =f.button :submit, "Send", :class => "btn btn-primary"
+
 -content_for(:scripts) do
   :javascript
     $(document).ready(function() {
-      $('#pictures').modal({show:false});
+      $('#pictures,#contact').modal({show:false});
       $('#carousel').carousel();
     });

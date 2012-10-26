@@ -1,0 +1,68 @@
+%h2 Other stuff buyer's need to know
+=f.input :location_name,
+:input_html => {:data => {:"typeahead-type" => "location"}},
+:hint => "This should be city where the car is located and available for viewing"
+
+=f.input :asking_price, :as => :text, :wrapper => :prepend do
+  %span.add-on><$
+  =f.input_field :asking_price
+
+-unless email_signed_in?
+  %h3 How to contact you
+  =f.simple_fields_for :poster do |p|
+    =p.input :email,
+    :hint => "Other users will <strong>never</strong> see your email address. This will be used by us to contact you when you have an inquiry about your vehicle.",
+    :as => :email
+
+    =p.input :password,
+    :hint => "We'll need a password so you can manage your posting"
+
+    =p.input :password_confirmation
+
+=f.input :current_step, :as => :hidden
+
+=f.input :make_id,
+  :as => :hidden
+
+=f.input :model_id,
+  :as => :hidden
+
+=f.input :trim_id,
+  :as => :hidden
+
+=f.input :model_year_id,
+  :as => :hidden
+
+=f.input :condition_id,
+  :as => :hidden
+
+=f.input :mileage,
+  :as => :hidden
+
+=f.input :body_style_id,
+  :as => :hidden
+
+=f.input :interior_color_id,
+  :as => :hidden
+
+=f.input :exterior_color_id,
+  :as => :hidden
+
+-@car.photos.each do |photo|
+  %input{:type => :hidden, :name => "car[photos_attributes][][thumbnail_url]", :value => photo.thumbnail_url}
+  %input{:type => :hidden, :name => "car[photos_attributes][][url]", :value => photo.url}
+
+=f.input :transmission_id,
+  :as => :hidden
+
+-#=f.association :features,
+  :as => :hidden
+-@car.features.each do |feature|
+  %input{:type => :hidden, :name => "car[feature_ids][]", :value => feature.id}
+
+=f.input :description,
+  :as => :hidden
+
+.form-actions
+  =f.button :submit, "Previous", :class => "btn"
+  = f.button :submit, "Sell my car!", :class => "btn btn-primary"

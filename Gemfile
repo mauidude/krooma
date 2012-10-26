@@ -12,7 +12,7 @@ gem 'sunspot_solr', '~> 1.3.3'
 gem 'will_paginate', '~> 3.0.3'
 gem 'simple_form'
 gem 'devise'
-#gem 'client_side_validations'
+gem 'transloadit-rails'
 
 
 # Gems used only for assets and not required

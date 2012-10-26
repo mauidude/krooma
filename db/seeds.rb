@@ -52,6 +52,20 @@ logos = {
 random = Random.new
 
 ActiveRecord::Base.transaction do
+  features = Feature.create!([
+                              {:name => "Power Windows"},
+                              {:name => "Power Doors"},
+                              {:name => "Navigation"},
+                              {:name => "CD Player"},
+                              {:name => "CD Changer"},
+                              {:name => "Seat Heaters"},
+                              {:name => "Air Conditioning"},
+                              {:name => "Alloy Wheels"},
+                              {:name => "Premium Sound System"},
+                              {:name => "Sunroof"},
+                              {:name => "Moonroof"}
+                             ])
+
   body_styles = BodyStyle.create!([
                                      {:name => "Sedan", :url_name => "sedan"},
                                      {:name => "Coupe", :url_name => "coupe"},
@@ -127,9 +141,18 @@ ActiveRecord::Base.transaction do
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet fermentum nunc. In hac habitasse platea dictumst. Integer pulvinar, elit vitae rhoncus lobortis, leo eros mattis est, sed posuere nibh enim at sapien. Nam a neque felis. Aenean et porta ipsum. Suspendisse potenti."
       })
 
+      car_features = []
+      random.rand(features.length).times do
+        car_features << features[random.rand(features.length)]
+      end
+
+      car_features.uniq!
+
+      car = nil
+
       if trims.empty?
         5.times do
-          Car.create!({
+          car = Car.create!({
             :asking_price => random.rand(10000...100000),
             :body_style => body_styles[random.rand(body_styles.length)],
             :condition => conditions[random.rand(conditions.length)],
@@ -151,7 +174,7 @@ ActiveRecord::Base.transaction do
           trim = Trim.create({make: manufacturer, model: model, name: trim_name, url_name: trim_name.dasherize})
 
           5.times do
-            Car.create!({
+            car = Car.create!({
                :asking_price => random.rand(10000...100000),
                :body_style => body_styles[random.rand(body_styles.length)],
                :condition => conditions[random.rand(conditions.length)],
@@ -170,6 +193,9 @@ ActiveRecord::Base.transaction do
           end
         end
       end
+
+      car.features = car_features
+      car.save
     end
   end
 end

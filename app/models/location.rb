@@ -61,9 +61,9 @@ class Location < ActiveRecord::Base
         limit 1
       end
       paginate :page => 1, :per_page => 1
-    end
+    end.results
 
-    results
+    results.first
   end
 
   def self.suggest(text)

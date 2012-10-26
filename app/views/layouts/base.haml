@@ -10,10 +10,10 @@
       %script{:src => "http://html5shim.googlecode.com/svn/trunk/html5.js", :type => "text/javascript" }
 
     =stylesheet_link_tag "application", :media => "all"
-    %link{:href => "images/favicon.ico", :rel => "shortcut icon"}
-    %link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}
-    %link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}
-    %link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}
+    %link{:href => "/favicon.ico", :rel => "shortcut icon"}
+    %link{:href => "/apple-touch-icon.png", :rel => "apple-touch-icon"}
+    %link{:href => "/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}
+    %link{:href => "/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}
     -if !@meta_robots.empty?
       %meta{:name => "robots", :content => @meta_robots.join(',')}
 
@@ -23,7 +23,7 @@
         .navbar-inner
           %ul.nav.pull-left
             %li= link_to "Find Cars", root_path
-            %li= link_to "Sell Your Car"
+            %li= link_to "Sell Your Car", new_car_path
           %ul.nav.pull-right
             %li= email_signed_in? ? link_to("My Account", edit_email_registration_path) : link_to("Login", new_email_session_path)
             %li= email_signed_in? ? link_to("Logout", destroy_email_session_path) : link_to("Register", new_email_registration_path)

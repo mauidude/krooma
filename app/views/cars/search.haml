@@ -22,6 +22,8 @@
             %ul
               -facet.rows.each do |row|
                 -new_params = params.clone
+                -#-new_params[facet.name] = [] if new_params[facet.name].nil?
+                -#-new_params[facet.name] << row.value
                 -new_params[facet.name] = row.value
                 %li= link_to "#{row.value} (#{row.count})", search_without_parameter(:page, new_params)
 

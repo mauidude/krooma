@@ -4,8 +4,11 @@
 .row
   .span10
     %p
-      %img{:src => @manufacturer.logo.url, :alt => "#{@manufacturer.name} Logo", :align => "left"}
+      %img{:src => @manufacturer.logo.url, :alt => "#{@manufacturer.name} Logo", :align => "left", :class => "logo-make"}
       =@manufacturer.description
+
+    %ul.unstyled.spaced
+      %li= link_to "Sell Your #{@manufacturer.name}", new_car_path, :class => "btn btn-primary btn-large"
 
 
 .row

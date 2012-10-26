@@ -2,7 +2,7 @@
   %ul.thumbnails.span2
     %li
       %a.thumbnail{:href => car_path(car) }
-        %img{:src => "http://placehold.it/170x127"}
+        %img{:src => car.default_photo.nil? ? "http://placehold.it/170x127" : car.default_photo.thumbnail_url}
   .span6
     .row
       %span.span4.title
@@ -12,5 +12,8 @@
       %span.span1.mileage= "#{number_with_delimiter car.mileage} mi"
       %span.span1.asking_price= number_to_currency(car.asking_price, :precision => 0)
     %p= truncate_safe car.description
-
-    %time{:pubdate => car.created_at}= "#{time_ago_in_words(car.created_at)} ago"
+    -car.features.each do |feature|
+      %span.label= feature.name.parameterize
+    .row
+      %time.span2{:pubdate => car.created_at}= "#{time_ago_in_words(car.created_at)} ago"
+      %span.span2.location= car.location.name
