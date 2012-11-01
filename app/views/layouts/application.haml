@@ -1,20 +1,21 @@
 -content_for :content do
-  .row
-    .span2
-      %a.brand{:href => root_path}
-        %img{:src => asset_path("krooma.png"), :alt => "Krooma" }
-    .span10
-      =render :partial => "shared/search"
+  #subheader.navbar
+    .navbar-inner
+      .pull-left
+        =render :partial => "shared/logo"
+        %a.brand{:href => root_path} Krooma
+      .pull-right
+        =render :partial => "shared/search"
 
-  -if content_for?(:title)
-    .page-header
-      %h1= yield(:title)
+  .container-fluid
+    -if content_for?(:title)
+      .page-header
+        %h1= yield(:title)
 
-  -if a = alert
-    .alert.alert-error= a
+    -if a = alert
+      .alert.alert-error= a
 
-  .container
-    .row
+    .row-fluid
       .span10
         =yield
       .span2

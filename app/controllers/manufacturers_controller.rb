@@ -6,7 +6,7 @@ class ManufacturersController < ApplicationController
   def show
     @manufacturer = Manufacturer.includes(:logo).from_param! params[:id]
 
-    @cars = Car.do_search({:make => @manufacturer.name, :order_by => {:field => :created_at, :direction => :desc}}, 50).results
+    @cars = Car.do_search({:make => @manufacturer.name, :order_by => {:field => :created_at, :direction => :desc}}, 8).results
   end
 
   def api_models

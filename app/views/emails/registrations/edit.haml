@@ -1,7 +1,7 @@
 =content_for(:title) do
   My Account
 
-.row
+.row-fluid
   .span6.offset3
     =simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => "well" }) do |f|
       = f.error_notification

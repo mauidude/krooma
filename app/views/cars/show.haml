@@ -1,48 +1,46 @@
 =content_for(:title) do
   ="#{@car.summary} in #{@car.location.name} For Sale"
-.row
+.row-fluid
   .span2
-    %dl.well
-      %dt Asking Price
-      %dd= number_to_currency @car.asking_price, :precision => 0
-      %dt Condition
-      %dd= @car.condition.name
-      %dt Exterior
-      %dd= @car.exterior_color.name
-      %dt Interior
-      %dd= @car.interior_color.name
-      %dt Transmission
-      %dd= @car.transmission.name
-      %dt Location
-      %dd= @car.location.name
-      %a.btn.btn-primary.btn-large{:href => "#contact", :data => {:toggle => "modal"}} Contact User
-  .span4
-    %ul.thumbnails
-      -@car.photos.each_with_index do |photo,i|
-        -if i == 0
-          %li.span4
+    .well
+      %dl
+        %dt Asking Price
+        %dd= number_to_currency @car.asking_price, :precision => 0
+        %dt Condition
+        %dd= @car.condition.name
+        %dt Exterior
+        %dd= @car.exterior_color.name
+        %dt Interior
+        %dd= @car.interior_color.name
+        %dt Transmission
+        %dd= @car.transmission.name
+        %dt Location
+        %dd= @car.location.name
+      %a#btn-contact.btn.btn-cta.btn-large{:href => "#contact", :data => {:toggle => "modal"}} Contact User
+  .span10
+    .row-fluid
+      %ul.thumbnails
+        -@car.photos.each do |photo|
+          %li.span3
             %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
-              %img{:src => photo.url}
-        -else
-          %li.span1
-            %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
-              %img{:src => photo.thumbnail_url, :width => 70, :height => 52}
-  .span4
-    %p= @car.description
-    %ul
-      -@car.features.each do |feature|
-        %li
+              %img{:src => photo.thumbnail_url}
+    .row-fluid
+      .span12
+        %p= @car.description
+        -@car.features.each do |feature|
           %span.label= feature.name.parameterize
-    %ul
-      %li= link_to "View All #{@car.make.name.pluralize} For Sale", make_path(@car.make)
-      %li= link_to "View All #{@car.make.name} #{@car.model.name.pluralize} For Sale", make_model_path(@car.make, @car.model)
+        %ul.unstyled.spaced
+          %li= link_to "View All #{@car.make.name.pluralize} For Sale", make_path(@car.make), :class => "btn btn-primary"
+          %li= link_to "View All #{@car.make.name} #{@car.model.name.pluralize} For Sale", make_model_path(@car.make, @car.model), :class => "btn btn-primary"
 
 -unless @similar_cars.empty?
-  .row
-    #similar.span8
+  .row-fluid
+    #similar.span12
       %h3 Similar Cars For Sale
-      =render :collection => @similar_cars, :partial => "car"
-      =link_to "View All Similar Cars", similar_car_path(@car)
+      -@similar_cars.each_slice(4) do |slice|
+        .row-fluid
+          =render :collection => slice, :partial => "car"
+    =link_to "View All Similar Cars", similar_car_path(@car)
 
 
 #pictures.fade.modal.hide

@@ -1,9 +1,9 @@
 %h2 What kind of car is it?
 
-%h3 Get started by entering your VIN Number
-= f.input :vin, :hint => "Enter your VIN to automatically fill in the fields below"
+-#%h3 Get started by entering your VIN Number
+-#= f.input :vin, :hint => "Enter your VIN to automatically fill in the fields below"
 
-%h3 Or manually enter these fields
+-#%h3 Or manually enter these fields
 = f.input :make_url_name, :collection => Manufacturer.order(:name), :value_method => :url_name, :required => true
 
 = f.input :model_url_name,

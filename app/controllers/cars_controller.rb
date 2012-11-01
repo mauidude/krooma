@@ -44,7 +44,7 @@ class CarsController < ApplicationController
   end
 
   def show
-    @similar_cars = @car.similar({}, 5).results
+    @similar_cars = @car.similar({}, 8).results
   end
 
   def similar

@@ -1,8 +1,8 @@
 -content_for :title do
   =@manufacturer.name
 
-.row
-  .span10
+.row-fluid
+  .span12
     %p
       %img{:src => @manufacturer.logo.url, :alt => "#{@manufacturer.name} Logo", :align => "left", :class => "logo-make"}
       =@manufacturer.description
@@ -11,20 +11,24 @@
       %li= link_to "Sell Your #{@manufacturer.name}", new_car_path, :class => "btn btn-primary btn-large"
 
 
-.row
-  .span10
+.row-fluid
+  .span12
     %h2= "#{@manufacturer.name} Models"
     %ul.thumbnails
-      -@manufacturer.models.each do |model|
-        %li.span2
-          .thumbnail
-            %a{:href => make_model_path(@manufacturer, model)}
-              %img{:src => "http://placehold.it/200x200", :alt => "#{@manufacturer.name} #{model.name}"}
-            .caption= link_to "#{@manufacturer.name} #{model.name}", make_model_path(@manufacturer, model)
+      -@manufacturer.models.each_slice(6) do |slice|
+        .row-fluid
+          -slice.each do |model|
+            %li.span2
+              .thumbnail
+                %a{:href => make_model_path(@manufacturer, model)}
+                  %img{:src => "http://placehold.it/200x200", :alt => "#{@manufacturer.name} #{model.name}"}
+                .caption= link_to "#{@manufacturer.name} #{model.name}", make_model_path(@manufacturer, model)
 
 -unless @cars.empty?
-  .row
-    .span10
+  .row-fluid
+    .span12
       %h2= "#{@manufacturer.name.pluralize} For Sale"
-      =render :collection => @cars, :partial => "cars/car"
+      -@cars.each_slice(4) do |slice|
+        .row-fluid
+          =render :collection => slice, :partial => "cars/car"
 

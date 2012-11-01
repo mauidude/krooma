@@ -8,9 +8,8 @@ ko.bindingHandlers.cascadingDropDown = {
         var exprRegex = /(\#\{[^\}].+?\})/g;
 
         var $parentDropDown = $(valueAccessor());
-        $parentDropDown.change(function() {
-           var $parent = $(this);
 
+        var update = function($parent) {
             // if no value
             if ($parent.val() === '') {
                 // disable and reset value
@@ -45,24 +44,32 @@ ko.bindingHandlers.cascadingDropDown = {
                 });
 
                 $.ajax({
-                  url: actual_url,
-                  dataType: 'json',
-                  success: function(data) {
-                      $.each(data, function(idx, item) {
-                        var $opt = $('<option />');
-                        $opt.attr('value', item[value]);
-                        $opt.html(item[display]);
+                    url: actual_url,
+                    dataType: 'json',
+                    success: function(data) {
+                        $.each(data, function(idx, item) {
+                            var $opt = $('<option />');
+                            $opt.attr('value', item[value]);
+                            $opt.html(item[display]);
 
-                        $this.append($opt);
-                      });
+                            $this.append($opt);
+                        });
 
-                      // re-enable and reset value
-                      $this.removeAttr('disabled');
-                      $this.val('');
-                  }
+                        // re-enable and reset value
+                        $this.removeAttr('disabled');
+                        $this.val('');
+                    }
                 });
             }
+        };
+
+        $parentDropDown.change(function($parent) {
+           var $parent = $(this);
+           update($parent);
         });
+
+        // initialize
+        update($parentDropDown);
     },
     update: function(element, valueAccessor, allBindingsAccessor) {
 

@@ -1,8 +1,8 @@
 =content_for(:title) do
   Register
 
-.row
-  .span6.offset3
+.row-fluid
+  .span4.offset4
     =simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => "well"}) do |f|
       =f.error_notification
 
@@ -12,6 +12,6 @@
 
       .form-actions= f.button :submit, "Sign up", :class => "btn btn-primary btn-large"
 
-.row
+.row-fluid
   .span4.offset4
     =render "emails/shared/links"

@@ -249,7 +249,7 @@ class Car < ActiveRecord::Base
     SearchResults.new(results)
   end
 
-  def self.do_search(params = {}, per_page = 10)
+  def self.do_search(params = {}, per_page = 12)
     facets = {}
 
     asking_price = parse_asking_price params[:asking_price]

@@ -64,5 +64,5 @@
   :as => :hidden
 
 .form-actions
-  =f.button :submit, "Previous", :class => "btn"
-  = f.button :submit, "Sell my car!", :class => "btn btn-primary"
+  =link_to "Previous", :back, :class => "btn"
+  =f.button :submit, "Sell my car!", :class => "btn btn-primary"

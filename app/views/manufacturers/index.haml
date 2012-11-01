@@ -2,11 +2,11 @@
   Cars By Make
 
 -@manufacturers.each do |manufacturer|
-  .row
+  .row-fluid
     .span2
       %h3= link_to manufacturer.name, make_path(manufacturer)
 
-  .row
+  .row-fluid
     .span10
       %ul.thumbnails
         -manufacturer.models.each do |model|

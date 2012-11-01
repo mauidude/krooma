@@ -1,8 +1,8 @@
 -content_for :title do
   ="#{@manufacturer.name} #{@model.name}"
 
-.row
-  .span10
+.row-fluid
+  .span12
     %p
       %img{:src => "http://placehold.it/300x300", :alt => "#{@manufacturer.name} Logo", :align => "left"}
       =@model.description
@@ -12,7 +12,9 @@
       %li= link_to "View All #{@manufacturer.name.pluralize}", make_path(@manufacturer), :class => "btn btn-primary"
 
 -unless @cars.empty?
-  .row
-    .span10
+  .row-fluid
+    .span12
       %h2= "#{@manufacturer.name} #{@model.name.pluralize} For Sale"
-      =render :collection => @cars, :partial => "cars/car"
+      -@cars.each_slice(4) do |slice|
+        .row-fluid
+          =render :collection => slice, :partial => "cars/car"

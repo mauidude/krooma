@@ -10,7 +10,7 @@
 =f.input :description,
 :as => :text,
 :input_html => {:rows => 5},
-:hint => "Anything else about the car you'd like to tell us about"
+:hint => "Tell us a little bit more about the car"
 
 =f.input :current_step, :as => :hidden
 
@@ -46,5 +46,5 @@
   %input{:type => :hidden, :name => "car[photos_attributes][][url]", :value => photo.url}
 
 .form-actions
-  =f.button :submit, "Previous", :class => "btn"
+  =link_to "Previous", :back, :class => "btn"
   =f.button :submit, "Continue", :class => "btn btn-primary"

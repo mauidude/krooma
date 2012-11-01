@@ -3,11 +3,24 @@
 */
 @import 'twitter/bootstrap/variables';
 @import 'twitter/bootstrap/mixins';
+@import 'variables';
 
 .car
 {
     margin-bottom: 2em;
     overflow: auto;
+    position: relative;
+
+    .price
+    {
+        position: absolute;
+        top: @baseLineHeight / 4;
+        left: 0;
+        background: @baseColor;
+        padding: @baseLineHeight / 4 @baseLineHeight / 2;
+        font-weight: bold;
+        color: @white;
+    }
 
     .title
     {
@@ -15,7 +28,6 @@
         font-size: larger;
     }
 
-    .asking_price,
     .mileage
     {
         font-weight: bold;
@@ -24,6 +36,24 @@
     p
     {
         margin: @baseLineHeight / 2 0;
+    }
+
+    .caption
+    {
+        font-weight: bold;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow:hidden;
+    }
+
+    .caption a
+    {
+        color: @white;
+    }
+
+    .caption a:visited
+    {
+        color: @grayLighter;
     }
 }
 
@@ -46,6 +76,12 @@
 
 #progress
 {
+}
+
+#btn-contact
+{
+    margin: @baseLineHeight auto 0 auto;
+    display: block;
 }
 
 

@@ -18,33 +18,31 @@
       %meta{:name => "robots", :content => @meta_robots.join(',')}
 
   %body
-    .container
-      #header.navbar
-        .navbar-inner
-          %ul.nav.pull-left
-            %li= link_to "Find Cars", root_path
-            %li= link_to "Sell Your Car", new_car_path
-          %ul.nav.pull-right
-            %li= email_signed_in? ? link_to("My Account", edit_email_registration_path) : link_to("Login", new_email_session_path)
-            %li= email_signed_in? ? link_to("Logout", destroy_email_session_path) : link_to("Register", new_email_registration_path)
-    .container
+    #header.navbar
+      .navbar-inner
+        %ul.nav.pull-left
+          %li= link_to "Find Cars", root_path
+          %li= link_to "Sell Your Car", new_car_path
+        %ul.nav.pull-right
+          %li= email_signed_in? ? link_to("My Account", edit_email_registration_path) : link_to("Login", new_email_session_path)
+          %li= email_signed_in? ? link_to("Logout", destroy_email_session_path) : link_to("Register", new_email_registration_path)
+    .container-fluid
       -if n = notice
         .alert.alert-success= n
 
-      =content_for?(:content) ? yield(:content) : yield
+    =content_for?(:content) ? yield(:content) : yield
 
-    .container
-      %footer
-        .navbar
-          .navbar-inner
-            .container
-              %a.btn.btn-navbar{:data => {:target => ".nav-collapse", :toggle => "collapse"}}
-                %span.icon-bar
-                %span.icon-bar
-                %span.icon-bar
-            .container.nav-collapse
-              %ul.nav
-                %li= link_to "Cars By Make", makes_path
-                %li= link_to "About", "/path2"
+    %footer
+      .navbar
+        .navbar-inner
+          .container-fluid
+            %a.btn.btn-navbar{:data => {:target => ".nav-collapse", :toggle => "collapse"}}
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+          .container.fluid.nav-collapse
+            %ul.nav
+              %li= link_to "Cars By Make", makes_path
+              %li= link_to "About", "/path2"
     =javascript_include_tag "application"
     =yield(:scripts) if content_for?(:scripts)

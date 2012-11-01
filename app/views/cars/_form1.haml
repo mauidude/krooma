@@ -58,7 +58,7 @@
   :as => :hidden
 
 .form-actions
-  =f.button :submit, "Previous", :class => "btn"
+  =link_to "Previous", :back, :class => "btn"
   =f.button :submit, "Continue", :class => "btn btn-primary"
 
 -content_for :scripts do
