@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121021225841) do
+ActiveRecord::Schema.define(:version => 20121102053744) do
 
   create_table "body_styles", :force => true do |t|
     t.string   "name",       :null => false
@@ -178,6 +178,16 @@ ActiveRecord::Schema.define(:version => 20121021225841) do
     t.string   "url",           :limit => 1024, :null => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "scraped_cars", :force => true do |t|
+    t.string   "url",        :limit => 4096, :null => false
+    t.string   "title",      :limit => 4096, :null => false
+    t.text     "content",                    :null => false
+    t.integer  "car_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "transmissions", :force => true do |t|

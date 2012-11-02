@@ -8,14 +8,15 @@
 .car
 {
     margin-bottom: 2em;
-    overflow: auto;
+    overflow: visible;
     position: relative;
 
     .price
     {
+        .box-shadow(3px 3px 0 rgba(0,0,0,.5));
         position: absolute;
         top: @baseLineHeight / 4;
-        left: 0;
+        left: -3px;
         background: @baseColor;
         padding: @baseLineHeight / 4 @baseLineHeight / 2;
         font-weight: bold;

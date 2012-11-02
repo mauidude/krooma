@@ -17,6 +17,10 @@
 //= require_tree .
 
 $(document).ready(function() {
+   $('.tile').click(function() {
+      window.location = $(this).find('a:first').attr('href');
+   });
+
     $('input[data-typeahead-type]').each(function(){
         var $this = $(this);
         $this.attr('autocomplete', 'off');

@@ -19,19 +19,20 @@
       %a#btn-contact.btn.btn-cta.btn-large{:href => "#contact", :data => {:toggle => "modal"}} Contact User
   .span10
     .row-fluid
+      .span12
+        %p= @car.description
+        %p
+          -@car.features.each do |feature|
+            %span.label= feature.name.parameterize
+        %ul.unstyled.spaced
+          %li= link_to "View All #{@car.make.name.pluralize} For Sale", make_path(@car.make), :class => "btn btn-primary"
+          %li= link_to "View All #{@car.make.name} #{@car.model.name.pluralize} For Sale", make_model_path(@car.make, @car.model), :class => "btn btn-primary"
+    .row-fluid
       %ul.thumbnails
         -@car.photos.each do |photo|
           %li.span3
             %a.thumbnail{:href => "#pictures", :data => {:toggle => "modal"}}
               %img{:src => photo.thumbnail_url}
-    .row-fluid
-      .span12
-        %p= @car.description
-        -@car.features.each do |feature|
-          %span.label= feature.name.parameterize
-        %ul.unstyled.spaced
-          %li= link_to "View All #{@car.make.name.pluralize} For Sale", make_path(@car.make), :class => "btn btn-primary"
-          %li= link_to "View All #{@car.make.name} #{@car.model.name.pluralize} For Sale", make_model_path(@car.make, @car.model), :class => "btn btn-primary"
 
 -unless @similar_cars.empty?
   .row-fluid
