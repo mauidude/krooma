@@ -1,0 +1,17 @@
+=content_for(:title) do
+  Register
+
+.row-fluid
+  .span4.offset4
+    =simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => "well"}) do |f|
+      =f.error_notification
+
+      .control-group= f.input :email, :required => true, :autofocus => true
+      .control-group= f.input :password, :required => true
+      .control-group= f.input :password_confirmation, :required => true
+
+      .form-actions= f.button :submit, "Sign up", :class => "btn btn-primary btn-large"
+
+.row-fluid
+  .span4.offset4
+    =render "emails/shared/links"

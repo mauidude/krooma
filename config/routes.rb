@@ -1,4 +1,46 @@
 Krooma::Application.routes.draw do
+  match '/location/suggest' => "location#suggest"
+  resources :cars, :only => [:show, :new, :create] do
+    collection do
+      get 'search'
+
+      resources :makes, :controller => "manufacturers", :only => [:index, :show] do
+
+        member do
+          # don't use resources to avoid the /models/ subdirectory in path
+          get 'models', :action => 'api_models', :as => 'api_models'
+        end
+
+        get ':id' => 'models#show', :as => 'model'
+      end
+    end
+
+    member do
+      get 'similar'
+    end
+  end
+
+  scope :api do
+    get 'api/makes/:make_id/:id/trims' => 'models#api_trims', :as => 'api_trims'
+    get 'api/makes/:id/models' => 'manufacturers#api_models', :as => 'api_models'
+    get 'api/makes/:make_id/:id/years' => 'models#api_model_years', :as => 'api_model_years'
+  end
+
+  resources :car_alerts, :only => [:new, :create]
+
+  resources :messages, :only => [:new, :create]
+
+  devise_for :emails,
+             :path => "users",
+             :path_names => {:sign_in => "login", :sign_out => "logout", :registration => "register", :sign_up => "" }
+
+  namespace :admin do
+    match 'queue' => 'queue#index'
+  end
+
+  match 'about' => 'home#about'
+
+  root :to => "home#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

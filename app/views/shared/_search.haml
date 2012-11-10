@@ -1,0 +1,9 @@
+%form.form-inline{:action => search_cars_path, :method => :get, :id => "global-search-form"}
+  -#=form_tag(search_cars_path, :method => :get, :class => "form-search") do
+  %fieldset
+    .control-group
+      %input{:type => "text", :placeholder=>"Ex: 2012 Honda Civic", :class => "input-large", :name => "q"}
+      %input{:type => "text", :placeholder=>"Ex: Los Angeles, CA", :class => "input-large", :name => "l", :data => {:"typeahead-type" => "location"}}
+        %button{:type => "submit", :class => "btn btn-cta"}
+          %i{:class => "icon-search"}
+          Find Cars

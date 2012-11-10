@@ -1,0 +1,51 @@
+.container-fluid
+  .row-fluid
+    .span12
+      .hero-unit
+        %h1 Find Your Dream Car
+        %p Finding your perfect car has never been so easy. Just type what you're looking for and search!
+        %p
+          =render :partial => "shared/search"
+
+  %h2 For Buyers
+  .row-fluid
+    .span4.tile
+      %h3
+        %a{:href => new_email_registration_path}
+          %i.icon-bolt
+          Receive alerts
+      %p Looking for that one car that you can't find anywhere? Well just create an alert for when we get a car with your specifications added on the site and we will notify you via email immediately!
+    .span4.tile
+      %h3
+        %a{:href => new_email_registration_path}
+          %i.icon-leaf
+          Improve your mpg
+      %p Search for vehicles by keyword, location and even filter by things such as MPG, make, model and more! Drill down to find the car that matches your needs across a variety of filters.
+    .span4.tile
+      %h3
+        %a{:href => new_email_registration_path}
+          %i.icon-pushpin
+          Save your favorites
+      %p As you come across cars you like during your search, save them for later. Once you have a few saved, you can conveniently view and compare them all at once in one spot.
+
+
+  %h2 For Sellers
+  .row-fluid
+    .span4.tile
+      %h3
+        %a{:href => new_car_path}
+          %i.icon-tag
+          Sell for free
+      %p Post your car for sale free, without any hidden fees or anything! All it takes is a few easy questions about your car and it's up on the site instantly. You also get the ability to manage your postings easily and remove them as soon as they sell.
+    .span4.tile
+      %h3
+        %a{:href => new_car_path}
+          %i.icon-lock
+          Keep your information secure
+      %p Don't just post your phone number and email out there for anyone to harvest. We keep your contact information safe and secure, allowing you to chose when you want to allow another user to see your contact information.
+    .span4.tile
+      %h3
+        %a{:href => new_car_path}
+          %i.icon-rss
+          Syndicate
+      %p Why post it on all those other sites when you can do it once here? Put your car up for sale here and have it syndicated out to other sites with a single submission! Choose which third-party sites you want to send it to and manage it in one place.

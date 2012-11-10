@@ -1,0 +1,36 @@
+@import 'twitter/bootstrap/variables';
+@import 'twitter/bootstrap/mixins';
+
+.car-alert-callout
+{
+    overflow: auto;
+
+    .title
+    {
+        font-size: larger;
+    }
+
+    .message
+    {
+        float: right;
+    }
+
+    &.disabled
+    {
+        .well
+        {
+            border-color: transparent;
+            background: transparent;
+
+            form
+            {
+                display: none;
+            }
+        }
+    }
+
+    form
+    {
+        margin: @baseLineHeight 0 0;
+    }
+}

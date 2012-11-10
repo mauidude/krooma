@@ -1,0 +1,34 @@
+-content_for :title do
+  =@manufacturer.name
+
+.row-fluid
+  .span12
+    %p
+      %img{:src => @manufacturer.logo.url, :alt => "#{@manufacturer.name} Logo", :align => "left", :class => "logo-make"}
+      =@manufacturer.description
+
+    %ul.unstyled.spaced
+      %li= link_to "Sell Your #{@manufacturer.name}", new_car_path, :class => "btn btn-primary btn-large"
+
+
+.row-fluid
+  .span12
+    %h2= "#{@manufacturer.name} Models"
+    %ul.thumbnails
+      -@manufacturer.models.each_slice(6) do |slice|
+        .row-fluid
+          -slice.each do |model|
+            %li.span2
+              .thumbnail
+                %a{:href => make_model_path(@manufacturer, model)}
+                  %img{:src => "http://placehold.it/200x200", :alt => "#{@manufacturer.name} #{model.name}"}
+                .caption= link_to "#{@manufacturer.name} #{model.name}", make_model_path(@manufacturer, model)
+
+-unless @cars.empty?
+  .row-fluid
+    .span12
+      %h2= "#{@manufacturer.name.pluralize} For Sale"
+      -@cars.each_slice(4) do |slice|
+        .row-fluid
+          =render :collection => slice, :partial => "cars/car"
+

@@ -1,0 +1,407 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import 'twitter/bootstrap/variables';
+@import 'twitter/bootstrap/mixins';
+@import 'variables';
+
+[class^="icon-"], [class*="icon-"]
+{
+    background: none;
+}
+
+.thumbnail
+{
+    border: 0;
+    padding: 0;
+
+    img
+    {
+        width: 100%;
+    }
+
+    .caption
+    {
+        background:  @gray;
+        color: @white;
+    }
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    font-weight: normal;
+}
+
+h1
+{
+    letter-spacing: -2px;
+}
+
+h2, h3
+{
+    letter-spacing: -1px;
+}
+
+select, textarea, input[type="text"], input[type="password"],
+input[type="datetime"], input[type="datetime-local"], input[type="date"],
+input[type="month"], input[type="time"], input[type="week"], input[type="number"],
+input[type="email"], input[type="url"], input[type="search"], input[type="tel"],
+input[type="color"], .uneditable-input, .btn, .well, .thumbnail, .hero-unit, .navbar-inner, .subnav,
+.dropdown-menu, .nav-pills .dropdown-menu, .label, .well, .modal, .alert
+{
+    .border-radius(0);
+}
+
+.hero-unit
+{
+    margin-top: 30px;
+}
+
+.alert
+{
+    text-shadow: none;
+}
+
+.alert-error
+{
+    background: @red;
+    color: @white;
+    border: 0;
+}
+
+.control-group
+{
+    padding: @baseLineHeight / 4;
+}
+
+.control-group.error
+{
+    background: @red;
+    border: 1px solid @white;
+    color: @white;
+
+    .control-label,
+    .help-inline
+    {
+        color: @white;
+    }
+}
+
+.well .alert-error
+{
+    border: 1px solid @white;
+}
+
+.tile
+{
+    background: desaturate(@compoundColor, 25%);
+    color: @white;
+    padding: @baseLineHeight;
+    cursor: pointer;
+
+    a, a:hover
+    {
+        color: @white;
+        text-decoration: none;
+    }
+
+    h3
+    {
+        .transition(bottom @standardTransition);
+        position: relative;
+        bottom: 0;
+    }
+
+    &:hover h3
+    {
+        .transition(bottom @standardTransition);
+        bottom: 5px;
+    }
+}
+
+.btn
+{
+    .box-shadow(none);
+    .transition(background @standardTransition);
+
+    background: @grayLight;
+    color: @white;
+    border: 0;
+    text-shadow: none;
+
+    &:hover
+    {
+        .transition(background @standardTransition);
+        background: lighten(@grayLight, 15%);
+        color: @white;
+    }
+}
+
+.btn-cta
+{
+    background: @btnCTABackground;
+    color: @white;
+
+    &:hover
+    {
+        background: lighten(@btnCTABackground, 5%);
+        color: @white;
+    }
+}
+
+.btn-primary
+{
+    background: @linkColor;
+
+    &:hover
+    {
+        background: lighten(@linkColor, 15%);
+    }
+}
+
+.carousel-control
+{
+    .border-radius(0);
+}
+
+.nav-list li > a:hover
+{
+    background: transparent;
+}
+
+.dropdown-menu,
+.nav-pills .dropdown-menu
+{
+    .box-shadow(5px 5px 0 rgba(0, 0, 0, 0.2));
+    background: @white;
+}
+
+.form-actions
+{
+    background: transparent;
+    border: 0;
+}
+
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-menu li.active > a,
+.dropdown-menu li.active > a:hover
+{
+    background: @baseColor;
+    color: @white;
+}
+
+.well
+{
+    .box-shadow(none);
+    border: 0;
+    background-color: @secondaryColor;
+    color: @white;
+}
+
+.modal .modal-header
+{
+    border: 0;
+}
+
+.label
+{
+    text-shadow: none;
+    padding: 3px 5px;
+}
+
+.page-header
+{
+    margin: @baseLineHeight / 2 0;
+    padding: 0;
+}
+
+.navbar
+{
+    background: @baseColor;
+    margin-bottom: @baseLineHeight / 3;
+
+    .navbar-inner
+    {
+        background: 0;
+        border: 0;
+        padding-left: 0;
+        padding-right: 0;
+        .box-shadow(none);
+    }
+
+    .nav > li > a
+    {
+        text-shadow: none;
+        color: @white;
+    }
+
+    .pull-left
+    {
+        margin-top: 5px;
+    }
+
+    .brand
+    {
+        padding-top: 0;
+        padding-bottom: 0;
+        text-shadow: none;
+        color: @white;
+    }
+
+    .logo
+    {
+        width: @logoHeight / @logoWidth * @baseLineHeight;
+        height: @baseLineHeight;
+        float: left;
+        margin-right: @baseLineHeight / 4;
+    }
+}
+
+#header
+{
+    color: @white;
+    margin-bottom: 0;
+    background: @secondaryColor;
+
+    .navbar-inner
+    {
+        min-height: 0;
+    }
+
+    .nav > li > a
+    {
+        padding-top: 0;
+        padding-bottom: 0;
+        text-shadow: none;
+        color: @white;
+        margin: 0 10px;
+    }
+
+}
+
+#subheader
+{
+    margin-bottom: @baseLineHeight / 3;
+    padding: @baseLineHeight / 3;
+
+    .navbar-inner
+    {
+        min-height: 0;
+    }
+
+    form
+    {
+        margin-bottom: 0;
+
+        input
+        {
+            border-color: darken(@baseColor, 5%);
+        }
+
+        .btn
+        {
+            margin-top: 0;
+        }
+    }
+}
+
+.ad
+{
+    border: 1px solid red;
+}
+
+p img
+{
+    float: left;
+    margin-right: @gridGutterWidth;
+    margin-bottom: @gridGutterWidth;
+}
+
+// simple_form adds abbr for required fields... don't want to show these
+form
+{
+    abbr
+    {
+        display: none;
+    }
+
+    &.form-inline .control-group
+    {
+        display: inline;
+    }
+}
+
+.logo-make
+{
+    height: 150px;
+}
+
+ul.unstyled.spaced > li
+{
+    margin-bottom: @baseLineHeight / 2;
+}
+
+.pagination
+{
+    ul
+    {
+        .border-radius(0);
+        .box-shadow(none);
+    }
+
+    ul > li:first-child > a,
+    ul > li:last-child > a
+    {
+        .border-radius(0);
+    }
+
+    ul > li > a
+    {
+        background-color: @secondaryColor;
+        color: @white;
+        border: 0;
+        margin-right: @baseLineHeight / 4;
+
+        &:hover
+        {
+            background-color: lighten(@secondaryColor, 10%);
+        }
+    }
+
+    ul > li.active > span,
+    ul > li.active > a,
+    {
+        background-color: @baseColor;
+        color: @white;
+
+        &:hover
+        {
+            background-color: lighten(@baseColor, 10%);
+        }
+    }
+
+
+    ul > .disabled > a,
+    ul > .disabled > span
+    {
+         background-color: @grayLighter;
+        color: @gray;
+    }
+}
+
+h3 [class^="icon-"]
+{
+    margin-right: @baseLineHeight / 2;
+}
