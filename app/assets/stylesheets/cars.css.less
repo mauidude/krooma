@@ -75,8 +75,24 @@
     }
 }
 
-#progress
+#progress.subnav
 {
+    background: transparent;
+    border: 0;
+
+    &>.nav-pills > li > a
+    {
+        background: @grayLighter;
+        color: @gray;
+        border: 0;
+        margin-right: @baseLineHeight / 2;
+    }
+
+    &>.nav-pills > li.active > a
+    {
+        background: @baseColor;
+        color: @white;
+    }
 }
 
 #btn-contact

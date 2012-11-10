@@ -5,8 +5,8 @@ gem 'rails', '3.2.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-#gem 'pg'
-gem 'activerecord-jdbcpostgresql-adapter'
+gem 'pg'
+#gem 'activerecord-jdbcpostgresql-adapter'
 gem 'haml'
 gem 'sunspot_rails', '~> 1.3.3'
 gem 'sunspot_solr', '~> 1.3.3'
@@ -20,9 +20,10 @@ gem 'anemone'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'therubyrhino'
-  gem 'less', :git => 'https://github.com/cowboyd/less.rb.git', :submodules => true
-  gem 'less-rails', :git => 'https://github.com/metaskills/less-rails.git'
+  #gem 'therubyrhino'
+  #gem 'less', :git => 'https://github.com/cowboyd/less.rb.git', :submodules => true
+  #gem 'less-rails', :git => 'https://github.com/metaskills/less-rails.git'
+  gem 'less'
 
   gem 'knockoutjs-rails'
 
@@ -31,7 +32,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 
-  gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+  gem 'twitter-bootstrap-rails' #, :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 end
 
 gem 'jquery-rails'

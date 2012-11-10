@@ -34,7 +34,11 @@ Krooma::Application.routes.draw do
              :path => "users",
              :path_names => {:sign_in => "login", :sign_out => "logout", :registration => "register", :sign_up => "" }
 
+  namespace :admin do
+    match 'queue' => 'queue#index'
+  end
 
+  match 'about' => 'home#about'
 
   root :to => "home#index"
   # The priority is based upon order of creation:

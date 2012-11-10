@@ -134,12 +134,16 @@ input[type="color"], .uneditable-input, .btn, .well, .thumbnail, .hero-unit, .na
     .box-shadow(none);
     .transition(background @standardTransition);
 
+    background: @grayLight;
+    color: @white;
     border: 0;
     text-shadow: none;
 
     &:hover
     {
         .transition(background @standardTransition);
+        background: lighten(@grayLight, 15%);
+        color: @white;
     }
 }
 
