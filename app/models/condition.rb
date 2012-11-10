@@ -12,5 +12,5 @@ class Condition < ActiveRecord::Base
 
 
   validates :used,
-            :presence => true
+            :inclusion => [true,false]
 end

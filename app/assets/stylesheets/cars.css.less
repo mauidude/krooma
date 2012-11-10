@@ -1,0 +1,118 @@
+/*
+*= require _caralertsubscribeviewmodel
+*/
+@import 'twitter/bootstrap/variables';
+@import 'twitter/bootstrap/mixins';
+@import 'variables';
+
+.car
+{
+    margin-bottom: 2em;
+    overflow: visible;
+    position: relative;
+
+    .price
+    {
+        .box-shadow(3px 3px 0 rgba(0,0,0,.5));
+        position: absolute;
+        top: @baseLineHeight / 4;
+        left: -3px;
+        background: @baseColor;
+        padding: @baseLineHeight / 4 @baseLineHeight / 2;
+        font-weight: bold;
+        color: @white;
+    }
+
+    .title
+    {
+        font-weight: bold;
+        font-size: larger;
+    }
+
+    .mileage
+    {
+        font-weight: bold;
+    }
+
+    p
+    {
+        margin: @baseLineHeight / 2 0;
+    }
+
+    .caption
+    {
+        font-weight: bold;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow:hidden;
+    }
+
+    .caption a
+    {
+        color: @white;
+    }
+
+    .caption a:visited
+    {
+        color: @grayLighter;
+    }
+}
+
+.page-count
+{
+
+}
+
+.modal
+{
+    .modal-body
+    {
+        overflow-y: visible;
+    }
+    .carousel img
+    {
+        width: 100%;
+    }
+}
+
+#progress.subnav
+{
+    background: transparent;
+    border: 0;
+
+    &>.nav-pills > li > a
+    {
+        background: @grayLighter;
+        color: @gray;
+        border: 0;
+        margin-right: @baseLineHeight / 2;
+    }
+
+    &>.nav-pills > li.active > a
+    {
+        background: @baseColor;
+        color: @white;
+    }
+}
+
+#btn-contact
+{
+    margin: @baseLineHeight auto 0 auto;
+    display: block;
+}
+
+
+// swap search results and facets non-mobile views
+@media(min-width: 481px)
+{
+    #results
+    {
+        float: right !important;
+        margin-left: auto;
+    }
+
+    #facets
+    {
+        float: left;
+    }
+}

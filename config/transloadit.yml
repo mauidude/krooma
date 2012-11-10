@@ -1,0 +1,8 @@
+auth:
+  key     : 1b3408a2637b45eb97c700fac0e70e91
+  secret  : 43336256f3edc9ec091d56e2daf7871800c14fa1
+  duration: 1800 # 30 minute validity period for signed upload forms
+
+templates:
+  s3_store : '0b8c9b1bd713499c90285ee8c573643e'
+

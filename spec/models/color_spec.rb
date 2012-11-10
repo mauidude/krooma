@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe Color do
   context "validations" do
-    it { should validate_presence_of :external }
+    describe "#external" do
+      it { should allow_value(true).for(:external) }
+      it { should allow_value(true).for(:external) }
+      it { should_not allow_value(nil).for(:external) }
+    end
 
     describe "#name" do
       subject { FactoryGirl.create :exterior_color }

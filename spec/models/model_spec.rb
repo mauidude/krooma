@@ -10,6 +10,7 @@ describe Model do
   end
 
   context "validations" do
+    it { should validate_presence_of :description }
     it { should validate_presence_of :make_id }
 
     describe "#name" do

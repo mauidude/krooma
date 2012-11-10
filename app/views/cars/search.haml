@@ -1,0 +1,57 @@
+#results.span12
+  -#.row
+    .car-alert-callout.disabled.span8
+      .well
+        =render :partial => "car_alerts/new_email", :locals => {:collapsable => true, :message => "Cars #{@cars.offset + 1} to #{@cars.offset + @cars.per_page} of #{@cars.total_count}"}
+  .page-header
+    %h1= search_description params
+
+  #facets
+    -if @applied_facets.any?
+      %span Filters
+      %ul.nav.nav-pills
+        -@applied_facets.each do |facet|
+          %li.active
+            =link_to "&times; #{facet.raw_value}".html_safe, search_without_parameter(facet.key), :title => "Remove Filter"
+    %ul.nav.nav-pills
+      -@facets.each do |facet|
+        -if facet.rows.length > 1
+          %li.dropdown
+            %a.dropdown-toggle{:data => {:toggle => "dropdown"}, :href => "#"}
+              = facet.name.to_s.humanize
+              %b.caret
+            %ul.dropdown-menu
+              -facet.rows.each do |row|
+                -new_params = params.clone
+                -#-new_params[facet.name] = [] if new_params[facet.name].nil?
+                -#-new_params[facet.name] << row.value
+                -new_params[facet.name] = row.value
+                %li= link_to "#{row.value} (#{row.count})", search_without_parameter(:page, new_params)
+
+  .clearfix
+
+  -@cars.each_slice(4) do |slice|
+    .row-fluid
+      =render :partial => "car", :collection => slice
+
+  =will_paginate @cars, :previous_label => "&laquo;", :next_label => "&raquo;", :renderer => BootstrapPaginationLinkRenderer
+
+-#.row-fluid
+  .car-alert-callout.well
+    .span7= render :partial => "car_alerts/new_email", :locals => {:collapsable => false}
+
+
+-#-content_for :sidebar do
+  %ul.nav.nav-pills.nav-stacked
+    -@applied_facets.each do |facet|
+      %li.active
+        =link_to "&times; #{facet.raw_value}".html_safe, search_without_parameter(facet.key)
+
+  -#%ul.nav.nav-list
+    -@facets.each do |facet|
+      -if facet.rows.length > 1
+        %li.nav-header= facet.name.to_s.humanize
+        -facet.rows.each do |row|
+          -new_params = params.clone
+          -new_params[facet.name] = row.value
+          %li= link_to "#{row.value} (#{row.count})", search_without_parameter(:page, new_params)

@@ -1,0 +1,7 @@
+.row-fluid
+  %h4= @scraped_car.title
+  %p= simple_format @scraped_car.sanitized
+
+.row-fluid
+  -@scraped_car.images.each do |img|
+    %img.span3{:src => img}

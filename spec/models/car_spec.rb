@@ -13,6 +13,8 @@ describe Car do
     it { should belong_to(:exterior_color).class_name("Color") }
     it { should belong_to :body_style }
     it { should belong_to :transmission }
+    it { should belong_to :location }
+    it { should have_and_belong_to_many :features }
   end
 
   context "validations" do
@@ -26,10 +28,22 @@ describe Car do
     it { should validate_presence_of :exterior_color_id }
     it { should validate_presence_of :body_style_id }
     it { should validate_presence_of :transmission_id }
+    it { should validate_presence_of :location_id }
 
     describe "#asking_price" do
       it { should validate_presence_of :asking_price }
       it { should validate_numericality_of(:asking_price) }
+      it { should_not allow_value(-1).for(:asking_price) }
+      it { should_not allow_value(0).for(:asking_price) }
+      it { should allow_value(1).for(:asking_price) }
+    end
+
+    describe "#mileage" do
+      it { should validate_presence_of :mileage }
+      it { should validate_numericality_of(:mileage) }
+      it { should_not allow_value(-1).for(:mileage) }
+      it { should allow_value(0).for(:mileage) }
+      it { should allow_value(1).for(:mileage) }
     end
 
     describe "#vin" do

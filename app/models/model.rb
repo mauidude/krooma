@@ -17,4 +17,7 @@ class Model < ActiveRecord::Base
             :length => { :maximum => 50 },
             :uniqueness => { :case_sensitive => false }
 
+  validates :description,
+            :presence => true
+
 end

@@ -1,0 +1,65 @@
+%h2 What's it like?
+
+%h3 Condition
+=f.input :condition_id,
+:collection => Condition.all,
+:prompt => "Select condition"
+
+=f.input :mileage,
+:as => :string
+
+%h3 Colors
+
+=f.input :interior_color_id,
+:collection => Color.where(:external => false).order(:name),
+:prompt => "Select color"
+
+=f.input :exterior_color_id,
+:collection => Color.where(:external => true).order(:name),
+:prompt => "Select color"
+
+%h3 Appearance
+=f.input :body_style_id,
+:collection => BodyStyle.order(:name)
+
+-#.control-group
+  =f.input :photos,
+  :as => :file,
+  :input_html => {:multiple => "multiple"},
+  :hint => "Tip: Upload multiple photos at once by selecting control as you click on each file name"
+
+.control-group.file.optional
+  =transloadit :s3_store
+  %label.file.optional.control-label Photos
+  .controls
+    %div
+      %input{:type => :file, :name => "photos[]"}
+    %div
+      %input{:type => :file, :name => "photos[]"}
+    %div
+      %input{:type => :file, :name => "photos[]"}
+    %div
+      %input{:type => :file, :name => "photos[]"}
+    %div
+      %input{:type => :file, :name => "photos[]"}
+
+=f.input :current_step, :as => :hidden
+
+=f.input :make_id,
+  :as => :hidden
+
+=f.input :model_id,
+  :as => :hidden
+
+=f.input :trim_id,
+  :as => :hidden
+
+=f.input :model_year_id,
+  :as => :hidden
+
+.form-actions
+  =link_to "Previous", :back, :class => "btn"
+  =f.button :submit, "Continue", :class => "btn btn-primary"
+
+-content_for :scripts do
+  =transloadit_jquerify :new_car, :wait => true

@@ -1,0 +1,15 @@
+=content_for(:title) do
+  Cars By Make
+
+-@manufacturers.each do |manufacturer|
+  .row-fluid
+    .span2
+      %h3= link_to manufacturer.name, make_path(manufacturer)
+
+  .row-fluid
+    .span10
+      %ul.thumbnails
+        -manufacturer.models.each do |model|
+          %li.span1
+            %a{:href => make_model_path(manufacturer, model)}
+              %img{:src => "http://placehold.it/200x200", :alt => "#{manufacturer.name} #{model.name}"}

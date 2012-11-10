@@ -1,0 +1,15 @@
+-content_for(:title) do
+  Resend Confirmation Instructions
+
+.row-fluid
+  .well.span4.offset4
+    =simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
+      =f.error_notification
+      .control-group= f.input :email, :required => true
+
+      .form-actions
+        = f.button :submit, "Resend confirmation instructions", :class => "btn btn-primary btn-large"
+
+.row-fluid
+  .span4.offset4
+    = render "devise/shared/links"

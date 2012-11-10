@@ -1,17 +1,17 @@
 @import "twitter/bootstrap/bootstrap";
 body { 
-	padding-top: 60px;
-	padding-left: 20px;
+	padding-top: 0;
 }
 
 @import "twitter/bootstrap/responsive";
+@import "variables";
 
 // Set the correct sprite paths
 @iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png');
 @iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png');
 
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
-// Note: If you use asset_path() here, your compiled boostrap_and_overrides.css will not 
+// Note: If you use asset_path() here, your compiled boostrap_and_overrides.css will not
 //       have the proper paths. So for now we use the absolute path.
 @fontAwesomeEotPath: '/assets/fontawesome-webfont.eot';
 @fontAwesomeWoffPath: '/assets/fontawesome-webfont.woff';
@@ -20,6 +20,18 @@ body {
 
 // Font Awesome
 @import "fontawesome";
+
+@linkColor: @secondaryColor;
+@gray: #414141;
+
+@textColor: @gray;
+
+@heroUnitBackground: @baseColor;
+@heroUnitHeadingColor: @white;
+@heroUnitLeadColor: @white;
+
+@sansFontFamily: Helvetica, "Segoe UI", Segoe, "Helvetica Neue", Arial, sans-serif;
+
 
 // Your custom LESS stylesheets goes here
 //
@@ -31,3 +43,35 @@ body {
 //
 // Example:
 // @linkColor: #ff0000;
+
+dl
+{
+   -webkit-margin-before: 0;
+   -webkit-margin-after: 0;
+}
+
+.page-header
+{
+    border: 0;
+
+    h1
+    {
+        margin: 0;
+        padding: 0;
+
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+    }
+}
+
+.nav-pills > li > a
+{
+    .border-radius(0);
+}
+
+//a:visited.btn,
+.label a,
+.label a:visited
+{
+    color: @btnBackground;
+}

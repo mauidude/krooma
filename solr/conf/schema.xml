@@ -84,6 +84,18 @@
     <fieldType name="tfloat" class="solr.TrieFloatField" omitNorms="true"/>
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="tdate" class="solr.TrieDateField" omitNorms="true"/>
+
+    <fieldType name="autosuggest" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="50" side="front" />
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
   </types>
   <fields>
     <!-- Valid attributes for fields:
@@ -111,6 +123,10 @@
      default: a value that should be used if no value is specified
        when adding a document.
    -->
+
+    <dynamicField name="*_as" type="autosuggest" indexed="true" multiValued="true" stored="false"/>
+    <dynamicField name="*_ass" type="autosuggest" indexed="true" multiValued="true" stored="true"/>
+
     <!-- *** This field is used by Sunspot! *** -->
     <field name="id" stored="true" type="string" multiValued="false" indexed="true"/>
     <!-- *** This field is used by Sunspot! *** -->

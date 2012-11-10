@@ -1,0 +1,38 @@
+%h2 What kind of car is it?
+
+-#%h3 Get started by entering your VIN Number
+-#= f.input :vin, :hint => "Enter your VIN to automatically fill in the fields below"
+
+-#%h3 Or manually enter these fields
+= f.input :make_url_name,
+  :collection => Manufacturer.order(:name),
+  :value_method => :url_name,
+  :required => true,
+  :label => "Make name"
+
+= f.input :model_url_name,
+  :collection => [],
+  :label => "Model name",
+  :required => true,
+  :prompt => "Select make first",
+  :disabled => true,
+  :input_html => {:data => {:bind => "cascadingDropDown:car_make_url_name, valueProperty:'url_name', url:'#{api_models_path(:id => '#{$("#car_make_url_name").val()}')}.js'"}}
+
+= f.input :trim_id,
+:collection => [],
+:required => false,
+:prompt => "Select model first",
+:disabled => true,
+:input_html => {:data => {:bind => "cascadingDropDown:car_model_url_name, valueProperty:'url_name', url: '#{api_trims_path(:id => '#{$("#car_model_url_name").val()}', :make_id => '#{$("#car_make_url_name").val()}')}.js'"}}
+
+= f.input :model_year_id,
+:collection => [],
+:required => true,
+:prompt => "Select model first",
+:disabled => true,
+:input_html => {:data => {:bind => "cascadingDropDown:car_model_url_name, displayProperty:'year', valueProperty:'id', url: '#{api_model_years_path(:id => '#{$("#car_model_url_name").val()}', :make_id => '#{$("#car_make_url_name").val()}')}.js'"}}
+
+=f.input :current_step, :as => :hidden
+
+.form-actions
+  =f.button :submit, "Continue", :class => "btn btn-primary"

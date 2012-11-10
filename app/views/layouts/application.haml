@@ -1,30 +1,25 @@
-=content_for(:title) ? yield(:title) : "Krooma"
+-content_for :content do
+  #subheader.navbar
+    .navbar-inner
+      .pull-left
+        =render :partial => "shared/logo"
+        %a.brand{:href => root_path} krooma
+      .pull-right
+        =render :partial => "shared/search"
 
-.navbar.navbar-fixed-top
-  .navbar-inner
-    .container-fluid
-      %a.btn.btn-navbar{:data => {:target => ".nav-collapse", :toggle => "collapse"}}
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-    %a.brand{:href => "#"} Krooma
-    .container-fluid.nav-collapse
-      %ul.nav
-        %li= link_to "Link1", "/path1"
-        %li= link_to "Link2", "/path2"
-        %li= link_to "Link3", "/path3"
+  .container-fluid
+    -if content_for?(:title)
+      .page-header
+        %h1= yield(:title)
 
-.container-fluid
-  .row-fluid
-    .span3
-      .well.sidebar-nav
-        %ul.nav.nav-list
-          %li.nav-header Sidebar
-          %li= link_to "Link1", "/path1"
-          %li= link_to "Link2", "/path2"
-          %li= link_to "Link3", "/path3"
+    -if a = alert
+      .alert.alert-error= a
 
-    .span9
-      =yield
+    .row-fluid
+      .span10
+        =yield
+      .span2
+        .sidebar-nav
+          =content_for?(:sidebar)? yield(:sidebar) : render("shared/ad")
 
-=render :template => "layouts/base"
+=render :file => "layouts/base"

@@ -1,0 +1,25 @@
+.car.thumbnail.span3
+  %a{:href => car_path(car) }
+    %img{:src => car.default_photo.nil? ? "http://placehold.it/170x127" : car.default_photo.thumbnail_url}
+  .price= number_to_currency car.asking_price, :precision => 0
+
+  .caption
+    %a{:href => car_path(car), :title => car.summary }= car.summary
+    -#-car.features.each do |feature|
+      %span.label= feature.name.parameterize
+
+
+  -#.span10
+    .row-fluid
+      %span.span8.title
+        -if car.new?
+          %span{:class => "label label-info"}= link_to "New!", car_path(car)
+        =link_to car.summary, car_path(car)
+      %span.span2.mileage= "#{number_with_delimiter car.mileage} mi"
+      %span.span2.asking_price= number_to_currency(car.asking_price, :precision => 0)
+    %span.muted.location= car.location.name
+    %p= truncate_safe car.description
+    -car.features.each do |feature|
+      %span.label= feature.name.parameterize
+    .row-fluid
+      %time.span3.muted{:pubdate => car.created_at}= "#{time_ago_in_words(car.created_at)} ago"
